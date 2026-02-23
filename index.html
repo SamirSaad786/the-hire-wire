@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hire Wire</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0e0c;
+    --surface: #1a1916;
+    --surface2: #242220;
+    --border: #2e2c28;
+    --gold: #d4a843;
+    --gold-dim: #8a6d2a;
+    --red: #c0392b;
+    --green: #27ae60;
+    --blue: #2980b9;
+    --text: #e8e4dc;
+    --text-dim: #8a8578;
+    --text-muted: #4a4840;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  #game {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  /* ===== SCREENS ===== */
+  .screen { display: none; animation: fadeIn 0.4s ease; }
+  .screen.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== HEADER ===== */
+  .masthead {
+    text-align: center;
+    margin-bottom: 60px;
+    padding-top: 20px;
+  }
+
+  .masthead-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .masthead h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 12vw, 120px);
+    line-height: 0.9;
+    color: var(--text);
+    letter-spacing: 2px;
+  }
+
+  .masthead h1 span {
+    color: var(--gold);
+  }
+
+  .masthead-sub {
+    margin-top: 20px;
+    font-size: 16px;
+    color: var(--text-dim);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-block;
+    padding: 14px 36px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: #0f0e0c;
+    font-weight: 500;
+  }
+  .btn-primary:hover { background: #e0b850; transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--text-dim); color: var(--text); }
+
+  /* ===== INTRO ===== */
+  .intro-body {
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .intro-body p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+
+  .intro-body p strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .intro-rules {
+    margin: 40px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    text-align: left;
+  }
+
+  .rule-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+
+  .rule-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .rule-card p {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ===== HIRING PHASE ===== */
+  .phase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--text);
+  }
+
+  .phase-meta {
+    text-align: right;
+  }
+
+  .budget-display {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    color: var(--gold);
+  }
+
+  .budget-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .slots-display {
+    margin-top: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  /* ===== CANDIDATE CARDS ===== */
+  .candidates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .candidate-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .candidate-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--gold);
+    transform: scaleY(0);
+    transition: transform 0.2s;
+  }
+
+  .candidate-card:hover {
+    border-color: var(--gold-dim);
+    transform: translateY(-2px);
+  }
+
+  .candidate-card:hover::before { transform: scaleY(1); }
+
+  .candidate-card.selected {
+    border-color: var(--gold);
+    background: #1e1c17;
+  }
+
+  .candidate-card.selected::before { transform: scaleY(1); }
+
+  .candidate-card.selected .select-indicator {
+    opacity: 1;
+  }
+
+  .select-indicator {
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 20px; height: 20px;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 11px;
+    color: #0f0e0c;
+    font-weight: bold;
+  }
+
+  .cand-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .cand-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  .cand-title {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .cand-trait {
+    display: inline-block;
+    padding: 3px 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-dim);
+    margin: 2px 2px 2px 0;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .cand-salary {
+    margin-top: 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .cand-salary span {
+    color: var(--text);
+  }
+
+  .cand-bio {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+
+  /* ===== SELECTED TEAM ===== */
+  .team-preview {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+
+  .team-preview-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .team-slots {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .team-slot {
+    padding: 8px 14px;
+    border: 1px dashed var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    transition: all 0.2s;
+  }
+
+  .team-slot.filled {
+    border-style: solid;
+    border-color: var(--gold-dim);
+    color: var(--text);
+    background: #1e1c17;
+  }
+
+  /* ===== SCENARIO PHASE ===== */
+  .scenario-container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .scenario-progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 32px;
+  }
+
+  .progress-pip {
+    height: 3px;
+    flex: 1;
+    background: var(--border);
+    transition: background 0.3s;
+  }
+
+  .progress-pip.done { background: var(--gold); }
+  .progress-pip.active { background: var(--gold-dim); }
+
+  .scenario-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 36px;
+    margin-bottom: 24px;
+  }
+
+  .scenario-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .scenario-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+
+  .scenario-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin-bottom: 24px;
+  }
+
+  .scenario-question {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    border-left: 3px solid var(--gold);
+    padding-left: 16px;
+    margin-bottom: 24px;
+  }
+
+  .scenario-choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .choice-btn {
+    text-align: left;
+    padding: 16px 20px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: all 0.2s;
+  }
+
+  .choice-btn:hover {
+    border-color: var(--gold-dim);
+    background: #1e1c17;
+  }
+
+  .choice-btn.chosen {
+    border-color: var(--gold);
+    background: #1e1c17;
+  }
+
+  .choice-btn.unchosen {
+    opacity: 0.4;
+  }
+
+  .outcome-reveal {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    animation: fadeIn 0.3s ease;
+  }
+
+  .outcome-reveal .outcome-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .outcome-reveal p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-dim);
+  }
+
+  .outcome-reveal .score-delta {
+    margin-top: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+  }
+
+  .score-delta.pos { color: var(--green); }
+  .score-delta.neg { color: var(--red); }
+  .score-delta.neu { color: var(--text-dim); }
+
+  /* ===== RESULTS ===== */
+  .results-container {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .results-score-display {
+    margin: 40px 0;
+  }
+
+  .score-ring {
+    width: 160px;
+    height: 160px;
+    border: 3px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    position: relative;
+  }
+
+  .score-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 1;
+    color: var(--gold);
+  }
+
+  .score-max {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .verdict-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    margin-bottom: 8px;
+  }
+
+  .verdict-sub {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-bottom: 32px;
+  }
+
+  .team-autopsy {
+    text-align: left;
+    margin: 32px 0;
+  }
+
+  .autopsy-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .autopsy-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .autopsy-name {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .autopsy-verdict {
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    padding: 4px 10px;
+  }
+
+  .autopsy-verdict.asset { color: var(--green); background: rgba(39,174,96,0.1); }
+  .autopsy-verdict.liability { color: var(--red); background: rgba(192,57,43,0.1); }
+  .autopsy-verdict.neutral { color: var(--text-dim); background: var(--surface); }
+
+  .insights-box {
+    background: var(--surface);
+    border-left: 3px solid var(--gold);
+    padding: 24px;
+    text-align: left;
+    margin: 24px 0;
+  }
+
+  .insights-box h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .insights-box p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+
+  .results-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+
+  /* ===== UTILITY ===== */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+  }
+
+  .text-center { text-align: center; }
+  .mt-24 { margin-top: 24px; }
+  .mt-40 { margin-top: 40px; }
+
+  .warning-text {
+    color: var(--red);
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    text-align: center;
+    margin-top: 12px;
+    min-height: 20px;
+  }
+
+  @media (max-width: 600px) {
+    .intro-rules { grid-template-columns: 1fr; }
+    .candidates-grid { grid-template-columns: 1fr; }
+    .phase-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .phase-meta { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div id="game">
+
+  <!-- INTRO SCREEN -->
+  <div id="screen-intro" class="screen active">
+    <div class="masthead">
+      <div class="masthead-label">A Leadership Judgment Game</div>
+      <h1>THE HIRE<span>WIRE</span></h1>
+      <div class="masthead-sub">Every person you pick says something about you.</div>
+    </div>
+    <div class="intro-body">
+      <p>You've just been promoted. Congratulations. You've inherited a team of <strong>zero</strong> and a mandate to build something.</p>
+      <p>Corporate has given you a <strong>$500K budget</strong> and a pool of candidates. They all look fine on paper. That's the problem.</p>
+      <p>Choose your 5 hires. Face what happens next. Find out what your choices say about your judgment.</p>
+
+      <div class="intro-rules">
+        <div class="rule-card">
+          <div class="rule-num">01</div>
+          <p>Pick 5 candidates from a pool of 10. Each has a salary, visible traits, and hidden ones.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">02</div>
+          <p>Face 5 workplace scenarios. Your team's composition determines your options — and outcomes.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">03</div>
+          <p>Receive a Leadership Judgment Score. Find out what your picks actually revealed about you.</p>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="startGame()">Begin Hiring</button>
+    </div>
+  </div>
+
+  <!-- HIRING SCREEN -->
+  <div id="screen-hiring" class="screen">
+    <div class="phase-header">
+      <div class="phase-title">The Candidate Pool</div>
+      <div class="phase-meta">
+        <div class="budget-label">Remaining Budget</div>
+        <div class="budget-display" id="budget-display">$500,000</div>
+        <div class="slots-display" id="slots-display">5 seats open</div>
+      </div>
+    </div>
+
+    <div class="team-preview">
+      <div class="team-preview-label">Your Team</div>
+      <div class="team-slots" id="team-slots"></div>
+    </div>
+
+    <div class="candidates-grid" id="candidates-grid"></div>
+
+    <div class="warning-text" id="hire-warning"></div>
+    <div class="text-center mt-24">
+      <button class="btn btn-primary" onclick="proceedToScenarios()" id="proceed-btn">Go To Scenarios →</button>
+    </div>
+  </div>
+
+  <!-- SCENARIO SCREEN -->
+  <div id="screen-scenario" class="screen">
+    <div class="scenario-container">
+      <div class="scenario-progress" id="scenario-progress"></div>
+      <div id="scenario-content"></div>
+      <div id="scenario-outcome" style="display:none"></div>
+      <div class="text-center mt-24" id="scenario-next" style="display:none">
+        <button class="btn btn-primary" onclick="nextScenario()">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="screen-results" class="screen">
+    <div class="results-container">
+      <div class="masthead">
+        <div class="masthead-label">Your Verdict</div>
+        <h1>THE <span>RESULTS</span></h1>
+      </div>
+      <div id="results-content"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ===== DATA =====
+
+const CANDIDATE_POOL = [
+  {
+    id: 'c1',
+    name: 'Marcus Delray',
+    title: '"Strategic Visionary" (Self-Described)',
+    role: 'Strategy',
+    salary: 130000,
+    visible_traits: ['MBA from Wharton', 'Great on slides', 'High energy'],
+    hidden_traits: ['hasn\'t delivered a project in 3 years', 'blames the system'],
+    archetype: 'brilliant_fraudster',
+    bio: 'Marcus has a resume that reads like a highlight reel. He\'s been "leading transformations" at three companies. None of them are transformation success stories.',
+    value: 'liability',
+    insight: 'The candidate who impresses in the interview room but puzzles everyone six months later.',
+  },
+  {
+    id: 'c2',
+    name: 'Priya Nair',
+    title: 'Former Operations Lead',
+    role: 'Operations',
+    salary: 95000,
+    visible_traits: ['Quiet', 'No Ivy League', 'Understated resume'],
+    hidden_traits: ['systems thinker', 'team multiplier', 'calm under fire'],
+    archetype: 'underdog',
+    bio: 'Priya\'s resume won\'t win a beauty contest. She ran ops for a 200-person org on a shoestring. Everything worked. Nobody knows her name because she made sure everyone else got credit.',
+    value: 'asset',
+    insight: 'The one who doesn\'t interview well but quietly makes everything around them better.',
+  },
+  {
+    id: 'c3',
+    name: 'Derek Voss',
+    title: 'Senior Director of Himself',
+    role: 'Sales',
+    salary: 145000,
+    visible_traits: ['Top performer award', 'charismatic', 'big network'],
+    hidden_traits: ['zero follow-through', 'leaves messes for others', 'will poach your clients on exit'],
+    archetype: 'brilliant_jerk',
+    bio: 'Derek is genuinely talented. He\'s also genuinely exhausting. His last three teams called him "the tornado" — impressive to watch, costly to clean up after.',
+    value: 'liability',
+    insight: 'The brilliant jerk. Performance that shows up in your metrics and exits in your culture.',
+  },
+  {
+    id: 'c4',
+    name: 'Aaliya Torres',
+    title: 'HR Generalist → Team Lead',
+    role: 'People Ops',
+    salary: 85000,
+    visible_traits: ['No direct reports yet', 'overly detail-oriented', 'asks a lot of questions'],
+    hidden_traits: ['high emotional intelligence', 'spots problems before they escalate', 'loyal'],
+    archetype: 'sleeper',
+    bio: 'Interviewers keep flagging Aaliya as "not quite ready." Aaliya has been quietly solving problems her managers didn\'t know existed for three years. She\'s ready.',
+    value: 'asset',
+    insight: 'The sleeper. Undervalued because her value isn\'t loud.',
+  },
+  {
+    id: 'c5',
+    name: 'Kevin Park',
+    title: 'Change Management Consultant',
+    role: 'Change Mgmt',
+    salary: 120000,
+    visible_traits: ['10 years consulting', 'published thought leader', 'knows the frameworks'],
+    hidden_traits: ['needs structure to function', 'struggles without playbook', 'will recommend a workshop for everything'],
+    archetype: 'framework_addict',
+    bio: 'Kevin has a framework for your framework. He\'s genuinely smart and genuinely limited. He thrives in stable environments and quietly falls apart when the plan goes sideways.',
+    value: 'neutral',
+    insight: 'Smart and structured. Excellent in the right conditions. Brittle in the wrong ones.',
+  },
+  {
+    id: 'c6',
+    name: 'Sandra Wu',
+    title: 'VP at a Startup (that Failed)',
+    role: 'Product',
+    salary: 110000,
+    visible_traits: ['startup failure on resume', 'gap in employment', 'unconventional path'],
+    hidden_traits: ['learned everything the hard way', 'resilient', 'has real judgment under pressure'],
+    archetype: 'battle_tested',
+    bio: 'Sandra\'s last company burned through $40M and folded. She was the one who saw it coming, said so, and got ignored. She\'s been sitting with that lesson ever since.',
+    value: 'asset',
+    insight: 'The one who failed forward. Failure on a resume can mean they have judgment. Or it can mean they don\'t. Sandra has it.',
+  },
+  {
+    id: 'c7',
+    name: 'Todd Brennan',
+    title: 'Director, Culture & Engagement',
+    role: 'Culture',
+    salary: 100000,
+    visible_traits: ['Great vibes', 'Brought donuts to the interview', 'Mentions "family" a lot'],
+    hidden_traits: ['conflict averse', 'will tell you what you want to hear', 'no accountability spine'],
+    archetype: 'yes_man',
+    bio: 'Todd is everybody\'s favorite person — right up until there\'s a hard decision to make. Then Todd is mysteriously unavailable. He will build beautiful culture decks about psychological safety while avoiding every uncomfortable conversation.',
+    value: 'liability',
+    insight: 'The culture ambassador who avoids all conflict. Culture without accountability is just vibes.',
+  },
+  {
+    id: 'c8',
+    name: 'Diane Osei',
+    title: 'CFO (Fractional)',
+    role: 'Finance',
+    salary: 90000,
+    visible_traits: ['Part-time, not fully committed', 'direct to the point of bluntness', 'will push back'],
+    hidden_traits: ['financially precise', 'intellectually honest', 'the person in the room who says what others won\'t'],
+    archetype: 'truth_teller',
+    bio: 'Diane will tell you that your projections are wrong. She\'s usually right. She\'s not mean about it, just direct in a way that makes people uncomfortable. That discomfort is valuable.',
+    value: 'asset',
+    insight: 'The truth-teller. The one who makes you better by refusing to let you stay comfortable.',
+  },
+  {
+    id: 'c9',
+    name: 'Ryan Callahan',
+    title: 'Associate → Manager (Fast Track)',
+    role: 'Marketing',
+    salary: 75000,
+    visible_traits: ['Young', 'Eager', 'Referenced TED Talks in the interview'],
+    hidden_traits: ['enormous potential', 'needs mentorship', 'will outgrow the role in 18 months'],
+    archetype: 'raw_talent',
+    bio: 'Ryan is a bet. In the right hands, a high-return one. Without guidance, he\'ll either stagnate or leave. He needs someone who will actually invest in developing him.',
+    value: 'neutral',
+    insight: 'Raw talent. The return depends entirely on the leader\'s willingness to invest.',
+  },
+  {
+    id: 'c10',
+    name: 'Constance Mbeki',
+    title: 'VP of Diverse Initiatives',
+    role: 'DEI',
+    salary: 115000,
+    visible_traits: ['Long tenure', 'Well connected internally', 'Excellent performance reviews'],
+    hidden_traits: ['comfortable, not growing', 'resistant to challenge', 'status quo defender'],
+    archetype: 'comfortable_incumbent',
+    bio: 'Constance knows where all the bodies are buried. She\'s also the one who buried some of them. Her institutional knowledge is real. Her institutional protectiveness of the old way is also real.',
+    value: 'liability',
+    insight: 'The incumbent. Network and history as assets. Resistance to change as a tax.',
+  },
+];
+
+const SCENARIOS = [
+  {
+    id: 's1',
+    tag: 'Month 2 — Reality Check',
+    title: 'The Plan Hits a Wall',
+    body: 'Your Q1 strategy just got revised — by someone three levels above you — without your input. The timeline shortened, the scope expanded, and your team is already stretched. Morale is fragile.',
+    question: 'How does your team respond?',
+    choices: [
+      {
+        text: 'Someone steps up immediately to reframe the situation for the team before panic sets in.',
+        archetypes_helped: ['underdog', 'battle_tested', 'truth_teller'],
+        archetypes_hurt: ['yes_man', 'framework_addict'],
+        outcome_good: 'Your team steadies. Someone names the situation clearly, acknowledges the frustration, and gets people oriented toward what they can control. The week stays productive.',
+        outcome_bad: 'The void of leadership in the moment creates a rumor cycle. Three people start job-hunting.',
+        score_delta_good: 12,
+        score_delta_bad: -10,
+      },
+      {
+        text: 'You call an all-hands and present a revised framework. Structure will steady people.',
+        archetypes_helped: ['framework_addict', 'yes_man'],
+        archetypes_hurt: ['truth_teller', 'battle_tested'],
+        outcome_good: 'The framework helps. People at least know what boxes to put things in. The real problems don\'t go away, but they\'re managed.',
+        outcome_bad: 'The all-hands creates more anxiety. People sense the plan doesn\'t actually account for the new reality. The framework feels like theater.',
+        score_delta_good: 6,
+        score_delta_bad: -6,
+      },
+    ],
+  },
+  {
+    id: 's2',
+    tag: 'Month 3 — Performance Issue',
+    title: 'The Star Is Burning the Team',
+    body: 'Your highest-performing individual is producing results — and also quietly making three colleagues miserable. Two people have come to you privately. The performer doesn\'t see a problem. Results are real. Damage is real.',
+    question: 'What happens next?',
+    choices: [
+      {
+        text: 'Someone on the team holds the mirror up to this person — and it lands.',
+        archetypes_helped: ['truth_teller', 'underdog', 'sleeper'],
+        archetypes_hurt: ['yes_man', 'brilliant_jerk'],
+        outcome_good: 'The feedback conversation happens. It\'s uncomfortable. It shifts something. The performer adjusts — not perfectly, but meaningfully.',
+        outcome_bad: 'No one holds the mirror. The situation festers. One colleague submits a resignation letter.',
+        score_delta_good: 14,
+        score_delta_bad: -14,
+      },
+      {
+        text: 'You let results speak. High performance protects itself.',
+        archetypes_helped: ['brilliant_jerk', 'brilliant_fraudster'],
+        archetypes_hurt: ['sleeper', 'underdog', 'truth_teller'],
+        outcome_good: 'The performer keeps delivering. The friction stays manageable — barely.',
+        outcome_bad: 'Two quiet contributors who were holding the team together quietly start looking for exits. The team\'s culture begins to set around the wrong standard.',
+        score_delta_good: 4,
+        score_delta_bad: -16,
+      },
+    ],
+  },
+  {
+    id: 's3',
+    tag: 'Month 5 — Crisis Mode',
+    title: 'Something Goes Publicly Wrong',
+    body: 'A miscommunication with a key stakeholder becomes a minor PR situation. Leadership above you wants a scapegoat. Someone on your team made the call. It wasn\'t the wrong call — context changed after.',
+    question: 'What does your team do?',
+    choices: [
+      {
+        text: 'You and your team present a clear, honest account of what happened — no spin.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'underdog'],
+        archetypes_hurt: ['yes_man', 'brilliant_fraudster'],
+        outcome_good: 'Leadership respects the clarity. The person who made the call is protected. Trust in your team goes up internally.',
+        outcome_bad: 'No one is willing to be fully honest. The account is muddy. The scapegoat gets offered up.',
+        score_delta_good: 16,
+        score_delta_bad: -18,
+      },
+      {
+        text: 'Someone manages the narrative upward while the team quietly adjusts the story.',
+        archetypes_helped: ['brilliant_fraudster', 'yes_man', 'comfortable_incumbent'],
+        archetypes_hurt: ['truth_teller', 'sleeper'],
+        outcome_good: 'The story holds. Leadership is satisfied. Nothing changes inside.',
+        outcome_bad: 'The spin doesn\'t fully land. Leadership senses something is off. Your credibility takes a quiet hit that will compound later.',
+        score_delta_good: 2,
+        score_delta_bad: -12,
+      },
+    ],
+  },
+  {
+    id: 's4',
+    tag: 'Month 7 — Growth Moment',
+    title: 'A Stretch Opportunity Appears',
+    body: 'Cross-functional leadership wants a representative from your team to lead a company-wide initiative. It\'s high visibility, hard work, and a real development opportunity. You need to decide who to put forward.',
+    question: 'What does the decision reveal?',
+    choices: [
+      {
+        text: 'You send the person who\'s most ready to grow, not the most polished one.',
+        archetypes_helped: ['sleeper', 'raw_talent', 'underdog', 'battle_tested'],
+        archetypes_hurt: ['brilliant_fraudster', 'yes_man'],
+        outcome_good: 'The choice surprises people — and then it doesn\'t. Your pick grows into the role. You\'ve now built someone who\'ll carry more.',
+        outcome_bad: 'No one on your team has the readiness because you didn\'t hire for potential. You send someone who looks right. They struggle.',
+        score_delta_good: 14,
+        score_delta_bad: -8,
+      },
+      {
+        text: 'You send whoever makes your team look best externally.',
+        archetypes_helped: ['brilliant_fraudster', 'brilliant_jerk'],
+        archetypes_hurt: ['sleeper', 'raw_talent', 'underdog'],
+        outcome_good: 'Optics are good. The initiative goes fine. No one grew.',
+        outcome_bad: 'The pick struggles publicly. You\'ve now spent political capital and gotten nothing back.',
+        score_delta_good: 3,
+        score_delta_bad: -10,
+      },
+    ],
+  },
+  {
+    id: 's5',
+    tag: 'Month 9 — The Hard Truth',
+    title: 'Someone Has to Go',
+    body: 'After nine months, it\'s clear one of your hires isn\'t working. Not a bad person — wrong fit, wrong role, wrong time. You\'ve had conversations. The situation isn\'t improving. Others are being affected.',
+    question: 'How does this resolve?',
+    choices: [
+      {
+        text: 'You have the direct conversation and make the call — with clarity and respect.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'underdog'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'The exit is handled well. The team notices. Your willingness to make hard calls with dignity raises the standard of the whole environment.',
+        outcome_bad: 'No one on the team models directness. The situation drags. The rest of the team adapts down to tolerate the problem.',
+        score_delta_good: 16,
+        score_delta_bad: -14,
+      },
+      {
+        text: 'You manage around the problem and hope performance improves.',
+        archetypes_helped: ['yes_man', 'framework_addict'],
+        archetypes_hurt: ['truth_teller', 'battle_tested'],
+        outcome_good: 'The person self-selects out three months later. Pain delayed.',
+        outcome_bad: 'The team loses faith in your willingness to make hard calls. Quietly, a few of your best people recalibrate their expectations of leadership.',
+        score_delta_good: 2,
+        score_delta_bad: -16,
+      },
+    ],
+  },
+];
+
+// ===== GAME STATE =====
+let state = {
+  budget: 500000,
+  selectedCandidates: [],
+  scenarioIndex: 0,
+  score: 50,
+  scenarioResults: [],
+  candidatePool: [],
+};
+
+// ===== HELPERS =====
+function shuffle(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function formatMoney(n) {
+  return '$' + n.toLocaleString();
+}
+
+function getTeamArchetypes() {
+  return state.selectedCandidates.map(c => c.archetype);
+}
+
+function teamHasArchetype(archetypes) {
+  const teamArch = getTeamArchetypes();
+  return archetypes.some(a => teamArch.includes(a));
+}
+
+// ===== SCREENS =====
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ===== START =====
+function startGame() {
+  state = {
+    budget: 500000,
+    selectedCandidates: [],
+    scenarioIndex: 0,
+    score: 50,
+    scenarioResults: [],
+    candidatePool: shuffle(CANDIDATE_POOL),
+  };
+  renderHiringScreen();
+  showScreen('hiring');
+}
+
+// ===== HIRING =====
+function renderHiringScreen() {
+  renderCandidates();
+  renderTeamSlots();
+  updateBudgetDisplay();
+}
+
+function renderTeamSlots() {
+  const container = document.getElementById('team-slots');
+  container.innerHTML = '';
+  for (let i = 0; i < 5; i++) {
+    const slot = document.createElement('div');
+    slot.className = 'team-slot' + (state.selectedCandidates[i] ? ' filled' : '');
+    slot.textContent = state.selectedCandidates[i] ? state.selectedCandidates[i].name : '— Open —';
+    container.appendChild(slot);
+  }
+}
+
+function updateBudgetDisplay() {
+  const spent = state.selectedCandidates.reduce((s, c) => s + c.salary, 0);
+  const remaining = state.budget - spent;
+  document.getElementById('budget-display').textContent = formatMoney(remaining);
+  document.getElementById('slots-display').textContent = (5 - state.selectedCandidates.length) + ' seat' + (5 - state.selectedCandidates.length !== 1 ? 's' : '') + ' open';
+}
+
+function renderCandidates() {
+  const grid = document.getElementById('candidates-grid');
+  grid.innerHTML = '';
+  state.candidatePool.forEach(c => {
+    const isSelected = state.selectedCandidates.find(s => s.id === c.id);
+    const card = document.createElement('div');
+    card.className = 'candidate-card' + (isSelected ? ' selected' : '');
+    card.onclick = () => toggleCandidate(c);
+    card.innerHTML = `
+      <div class="select-indicator">✓</div>
+      <div class="cand-role">${c.role}</div>
+      <div class="cand-name">${c.name}</div>
+      <div class="cand-title">${c.title}</div>
+      <div>
+        ${c.visible_traits.map(t => `<span class="cand-trait">${t}</span>`).join('')}
+      </div>
+      <div class="cand-salary">Salary: <span>${formatMoney(c.salary)}</span></div>
+      <div class="cand-bio">${c.bio}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function toggleCandidate(c) {
+  const idx = state.selectedCandidates.findIndex(s => s.id === c.id);
+  const warning = document.getElementById('hire-warning');
+  warning.textContent = '';
+
+  if (idx >= 0) {
+    state.selectedCandidates.splice(idx, 1);
+  } else {
+    if (state.selectedCandidates.length >= 5) {
+      warning.textContent = 'Team is full. Remove someone first.';
+      return;
+    }
+    const spent = state.selectedCandidates.reduce((s, c) => s + c.salary, 0);
+    if (spent + c.salary > state.budget) {
+      warning.textContent = 'Over budget. Remove a higher-salary hire first.';
+      return;
+    }
+    state.selectedCandidates.push(c);
+  }
+
+  renderCandidates();
+  renderTeamSlots();
+  updateBudgetDisplay();
+}
+
+function proceedToScenarios() {
+  if (state.selectedCandidates.length < 5) {
+    document.getElementById('hire-warning').textContent = 'You need 5 hires to proceed.';
+    return;
+  }
+  renderScenarioProgress();
+  loadScenario();
+  showScreen('scenario');
+}
+
+// ===== SCENARIOS =====
+function renderScenarioProgress() {
+  const container = document.getElementById('scenario-progress');
+  container.innerHTML = '';
+  SCENARIOS.forEach((_, i) => {
+    const pip = document.createElement('div');
+    pip.className = 'progress-pip' + (i < state.scenarioIndex ? ' done' : i === state.scenarioIndex ? ' active' : '');
+    pip.id = 'pip-' + i;
+    container.appendChild(pip);
+  });
+}
+
+function loadScenario() {
+  const s = SCENARIOS[state.scenarioIndex];
+  const content = document.getElementById('scenario-content');
+  const outcome = document.getElementById('scenario-outcome');
+  const nextBtn = document.getElementById('scenario-next');
+
+  outcome.style.display = 'none';
+  nextBtn.style.display = 'none';
+
+  content.innerHTML = `
+    <div class="scenario-card">
+      <div class="scenario-tag">${s.tag}</div>
+      <div class="scenario-title">${s.title}</div>
+      <div class="scenario-body">${s.body}</div>
+      <div class="scenario-question">${s.question}</div>
+      <div class="scenario-choices">
+        ${s.choices.map((ch, i) => `
+          <button class="choice-btn" onclick="selectChoice(${i})">${ch.text}</button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  renderScenarioProgress();
+}
+
+function selectChoice(choiceIdx) {
+  const s = SCENARIOS[state.scenarioIndex];
+  const choice = s.choices[choiceIdx];
+
+  // Determine outcome based on team composition
+  const teamGood = teamHasArchetype(choice.archetypes_helped);
+  const teamBad = teamHasArchetype(choice.archetypes_hurt) && !teamGood;
+
+  let outcomeText, scoreDelta, deltaClass, outcomeLabel;
+
+  if (teamGood) {
+    outcomeText = choice.outcome_good;
+    scoreDelta = choice.score_delta_good;
+    deltaClass = 'pos';
+    outcomeLabel = 'What Happened';
+  } else if (teamBad) {
+    outcomeText = choice.outcome_bad;
+    scoreDelta = choice.score_delta_bad;
+    deltaClass = 'neg';
+    outcomeLabel = 'What Happened';
+  } else {
+    // Neutral — partial outcome
+    outcomeText = choice.outcome_good;
+    scoreDelta = Math.floor(choice.score_delta_good / 2);
+    deltaClass = 'neu';
+    outcomeLabel = 'What Happened';
+  }
+
+  state.score = Math.max(0, Math.min(100, state.score + scoreDelta));
+  state.scenarioResults.push({ scenario: s, choiceIdx, outcomeText, scoreDelta, teamGood });
+
+  // Style buttons
+  document.querySelectorAll('.choice-btn').forEach((btn, i) => {
+    btn.onclick = null;
+    btn.className = 'choice-btn ' + (i === choiceIdx ? 'chosen' : 'unchosen');
+  });
+
+  // Show outcome
+  const outcome = document.getElementById('scenario-outcome');
+  outcome.style.display = 'block';
+  outcome.innerHTML = `
+    <div class="outcome-reveal">
+      <div class="outcome-label">${outcomeLabel}</div>
+      <p>${outcomeText}</p>
+      <div class="score-delta ${deltaClass}">${scoreDelta >= 0 ? '+' : ''}${scoreDelta} judgment points</div>
+    </div>
+  `;
+
+  document.getElementById('scenario-next').style.display = 'block';
+  const nextBtn = document.querySelector('#scenario-next button');
+  if (state.scenarioIndex >= SCENARIOS.length - 1) {
+    nextBtn.textContent = 'See Results →';
+  }
+}
+
+function nextScenario() {
+  state.scenarioIndex++;
+  if (state.scenarioIndex >= SCENARIOS.length) {
+    renderResults();
+    showScreen('results');
+  } else {
+    loadScenario();
+    window.scrollTo(0, 0);
+  }
+}
+
+// ===== RESULTS =====
+function getVerdict(score) {
+  if (score >= 85) return { title: 'Rare Judgment', sub: 'You hired for the team, not the optics. This is uncommon.' };
+  if (score >= 70) return { title: 'Solid Foundation', sub: 'More right than wrong. Some of your instincts need calibration.' };
+  if (score >= 50) return { title: 'Mixed Record', sub: 'You got some of it. The gaps will compound over time.' };
+  if (score >= 30) return { title: 'The Warning Signs Were There', sub: 'Your selections revealed more about what you wanted to avoid than what you wanted to build.' };
+  return { title: 'A Culture By Default', sub: 'You built a team that mirrors your blind spots. These teams exist everywhere.' };
+}
+
+function getInsight() {
+  const archetypes = getTeamArchetypes();
+  const insights = [];
+
+  if (archetypes.includes('brilliant_jerk')) insights.push('You hired for output over culture. Short-term gains, long-term costs.');
+  if (archetypes.includes('yes_man')) insights.push('You brought in someone who will tell you what you want to hear. That\'s comfortable. It\'s also dangerous.');
+  if (archetypes.includes('brilliant_fraudster')) insights.push('You were impressed by the presentation. The presentation was the product.');
+  if (archetypes.includes('underdog')) insights.push('You gave someone a chance who didn\'t look like the obvious choice. That\'s real judgment.');
+  if (archetypes.includes('truth_teller')) insights.push('You hired someone who will push back. That takes confidence in yourself.');
+  if (archetypes.includes('battle_tested')) insights.push('You saw the failure on the resume as evidence of judgment, not disqualification. Good.');
+  if (archetypes.includes('sleeper')) insights.push('You noticed something in someone others kept passing over. That\'s the skill that compounds.');
+  if (archetypes.includes('raw_talent')) insights.push('You made a bet on potential. The return depends on whether you actually develop them.');
+
+  return insights.slice(0, 3).join(' ');
+}
+
+function renderResults() {
+  const verdict = getVerdict(state.score);
+  const insight = getInsight();
+  const container = document.getElementById('results-content');
+
+  const teamAutopsy = state.selectedCandidates.map(c => ({
+    name: c.name,
+    verdict: c.value,
+    label: c.value === 'asset' ? 'Asset' : c.value === 'liability' ? 'Liability' : 'Variable',
+  }));
+
+  container.innerHTML = `
+    <div class="results-score-display">
+      <div class="score-ring">
+        <div class="score-number">${state.score}</div>
+        <div class="score-max">/ 100</div>
+      </div>
+      <div class="verdict-title">${verdict.title}</div>
+      <div class="verdict-sub">${verdict.sub}</div>
+    </div>
+
+    <div class="team-autopsy">
+      <div class="autopsy-label">Team Autopsy</div>
+      ${teamAutopsy.map(t => `
+        <div class="autopsy-item">
+          <div class="autopsy-name">${t.name}</div>
+          <div class="autopsy-verdict ${t.verdict}">${t.label}</div>
+        </div>
+      `).join('')}
+    </div>
+
+    ${insight ? `
+    <div class="insights-box">
+      <h3>What Your Picks Revealed</h3>
+      <p>${insight}</p>
+    </div>
+    ` : ''}
+
+    <div class="insights-box" style="border-color: var(--text-muted)">
+      <h3>The Principle</h3>
+      <p>Your team is the most public expression of your values as a leader. Every hire is a statement — about what you reward, what you tolerate, and what kind of culture you're willing to build or protect.</p>
+      <p>The candidates who impressed you most weren't always the ones who served the team best. That gap is worth sitting with.</p>
+    </div>
+
+    <div class="results-actions">
+      <button class="btn btn-primary" onclick="startGame()">Play Again</button>
+    </div>
+  `;
+}
+
+// Init
+renderTeamSlots && renderTeamSlots();
+</script>
+
+<footer style="
+  margin-top: 80px;
+  padding: 32px 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+">
+  <p style="font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); line-height: 1.8; letter-spacing: 0.5px;">
+    A reflective tool for exploring team composition and leadership dynamics.<br>
+    Inspired by Jim Collins' <em style="color: var(--text-dim);">Good to Great</em> and Tasha Eurich's research on leadership self-awareness.<br>
+    Built by <span style="color: var(--gold);">Samir Saad</span>.
+  </p>
+</footer>
+
+</body>
+</html>
