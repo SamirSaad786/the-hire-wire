@@ -30,7 +30,7 @@ Deploying to GitHub Pages
 
 Go to repo Settings → Pages
 Set source to main branch / root
-Your game will be live at https://samirSaad786.github.io/the-hire-wire
+Your game will be live at [https://samirSaad786.github.io/the-hire-wire](https://samirsaad786.github.io/the-hire-wire/)
 
 
 About the Author
