@@ -855,7 +855,8 @@ const CANDIDATE_POOL = [
   },
 ];
 
-const SCENARIOS = [
+// Full pool of 12 scenarios — 5 drawn randomly each playthrough
+const SCENARIO_POOL = [
   {
     id: 's1',
     tag: 'Month 2 — Reality Check',
@@ -991,7 +992,200 @@ const SCENARIOS = [
       },
     ],
   },
+  {
+    id: 's6',
+    tag: 'Month 3 — Credit & Visibility',
+    title: 'The Credit Grab',
+    body: 'A peer leader from another department presents your team\'s work to the executive team — and doesn\'t mention your team at all. Your people saw it happen. They\'re waiting to see what you do.',
+    question: 'How does this play out?',
+    choices: [
+      {
+        text: 'Someone on your team documents the work trail and you address it directly with the peer leader.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'underdog'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'The record gets corrected. Your team sees that you protect them. Their trust in you goes up a notch — quietly, but meaningfully.',
+        outcome_bad: 'No one challenges it. The peer gets credit. Your team draws a conclusion about what loyalty means here and adjusts their behavior accordingly.',
+        score_delta_good: 13,
+        score_delta_bad: -12,
+      },
+      {
+        text: 'You let it go to preserve the relationship. Politics are part of the game.',
+        archetypes_helped: ['yes_man', 'brilliant_fraudster'],
+        archetypes_hurt: ['truth_teller', 'sleeper', 'underdog'],
+        outcome_good: 'The relationship stays smooth. The slight is forgotten — by everyone except the people on your team who worked hardest on that project.',
+        outcome_bad: 'Your best contributors quietly wonder whether working hard under your leadership has any upside. One starts updating their resume.',
+        score_delta_good: 2,
+        score_delta_bad: -14,
+      },
+    ],
+  },
+  {
+    id: 's7',
+    tag: 'Month 6 — Retention Alarm',
+    title: 'Your Best Person Got an Offer',
+    body: 'Your strongest contributor — the one the whole team quietly relies on — just told you they have a competing offer. It\'s real. The number is higher than what you can immediately authorize. They\'re not making an ultimatum. They\'re telling you because they respect you.',
+    question: 'What happens next?',
+    choices: [
+      {
+        text: 'You go to bat immediately — escalate the conversation, make a case to leadership, and come back with something real.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'sleeper', 'underdog'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'You don\'t win every time. But this time you do. The person stays. More importantly, they remember that you fought for them.',
+        outcome_bad: 'You go to bat but come back empty-handed. They leave. But the rest of the team sees that you tried — which matters for what comes next.',
+        score_delta_good: 15,
+        score_delta_bad: -6,
+      },
+      {
+        text: 'You wish them well and start the backfill process. Loyalty is a two-way street and the market is the market.',
+        archetypes_helped: ['comfortable_incumbent', 'framework_addict'],
+        archetypes_hurt: ['raw_talent', 'sleeper', 'underdog'],
+        outcome_good: 'They leave cleanly. The transition is smooth. You lose institutional knowledge you\'ll spend six months rebuilding.',
+        outcome_bad: 'Word gets around that you didn\'t fight for them. Two other high performers recalibrate their own timelines for leaving.',
+        score_delta_good: 1,
+        score_delta_bad: -15,
+      },
+    ],
+  },
+  {
+    id: 's8',
+    tag: 'Month 4 — Burnout Signal',
+    title: 'Someone Is Running on Empty',
+    body: 'One of your most reliable team members has gone quiet. Deliverables are still coming in on time — barely — but you\'ve noticed the energy shift. They\'re first off every call, shortest in every response. Nobody else has flagged it.',
+    question: 'What do you do with what you\'re noticing?',
+    choices: [
+      {
+        text: 'You create space for the conversation before it becomes a crisis.',
+        archetypes_helped: ['sleeper', 'underdog', 'truth_teller', 'battle_tested'],
+        archetypes_hurt: ['brilliant_jerk', 'yes_man'],
+        outcome_good: 'You have a real conversation. You adjust their workload. Nothing dramatic — but they notice that you noticed. That\'s often enough.',
+        outcome_bad: 'The conversation happens but lands awkwardly. They appreciate the intent, but the team culture around them doesn\'t support real recovery.',
+        score_delta_good: 14,
+        score_delta_bad: -4,
+      },
+      {
+        text: 'Results are still coming in. You flag it mentally and give it another month.',
+        archetypes_helped: ['brilliant_fraudster', 'comfortable_incumbent'],
+        archetypes_hurt: ['sleeper', 'underdog', 'raw_talent'],
+        outcome_good: 'They work through it on their own. This time.',
+        outcome_bad: 'They submit a two-week notice three weeks later. In the exit interview they say they felt invisible. You weren\'t wrong — you just waited too long.',
+        score_delta_good: 2,
+        score_delta_bad: -16,
+      },
+    ],
+  },
+  {
+    id: 's9',
+    tag: 'Month 8 — Institutional Resistance',
+    title: 'The Old Way Has a Defender',
+    body: 'You\'re rolling out a new process that would meaningfully improve how the team operates. One team member — experienced, well-connected, respected by the old guard — is openly skeptical and their body language in meetings is louder than their words.',
+    question: 'How does the rollout go?',
+    choices: [
+      {
+        text: 'Someone bridges the gap — translating the new approach into terms that respect the experience in the room.',
+        archetypes_helped: ['sleeper', 'underdog', 'truth_teller', 'battle_tested'],
+        archetypes_hurt: ['brilliant_fraudster', 'yes_man'],
+        outcome_good: 'The resistant voice gets acknowledged rather than steamrolled. They don\'t become a champion — but they stop being a blocker. The rollout sticks.',
+        outcome_bad: 'Nobody bridges the gap. The change gets implemented on paper. The culture around it never shifts. Six months later you\'re wondering why adoption is at 40%.',
+        score_delta_good: 12,
+        score_delta_bad: -10,
+      },
+      {
+        text: 'You move forward on the timeline regardless. Resistance is part of every change.',
+        archetypes_helped: ['framework_addict', 'comfortable_incumbent'],
+        archetypes_hurt: ['truth_teller', 'sleeper', 'battle_tested'],
+        outcome_good: 'The change lands. Most people adapt. The resistant voice goes quiet — but not converted.',
+        outcome_bad: 'The rollout creates a fracture. The skeptic becomes a symbol for everyone who felt unheard. The change technically happens. The team doesn\'t.',
+        score_delta_good: 5,
+        score_delta_bad: -12,
+      },
+    ],
+  },
+  {
+    id: 's10',
+    tag: 'Month 5 — Ethics Moment',
+    title: 'Someone Saw Something',
+    body: 'A team member comes to you quietly. They\'ve witnessed something that concerns them — not a clear policy violation, but close. They\'re nervous. They trust you enough to bring it here first instead of going around you.',
+    question: 'What happens next?',
+    choices: [
+      {
+        text: 'You take it seriously, document it, and help them understand their options — including formal channels.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'sleeper', 'underdog'],
+        archetypes_hurt: ['yes_man', 'brilliant_fraudster', 'comfortable_incumbent'],
+        outcome_good: 'The situation gets reviewed properly. The person who brought it forward feels protected. Your credibility as a leader who can be trusted with hard things goes up.',
+        outcome_bad: 'The formal review opens more complexity than expected. It\'s uncomfortable. But you handled it right — and the team notices that too.',
+        score_delta_good: 16,
+        score_delta_bad: 4,
+      },
+      {
+        text: 'You reassure them it\'s probably nothing and suggest they let it go for now.',
+        archetypes_helped: ['comfortable_incumbent', 'yes_man'],
+        archetypes_hurt: ['truth_teller', 'sleeper', 'underdog'],
+        outcome_good: 'It was probably nothing. The situation passes. You\'ll never know for certain.',
+        outcome_bad: 'The situation surfaces later through a different channel. The person who came to you first now questions whether they should have. And so does everyone they\'ve talked to since.',
+        score_delta_good: 0,
+        score_delta_bad: -18,
+      },
+    ],
+  },
+  {
+    id: 's11',
+    tag: 'Month 6 — Organizational Shift',
+    title: 'The Reorg Lands on Your Team',
+    body: 'Leadership announces a restructure. You\'re losing one headcount permanently and absorbing two new responsibilities from a dissolved team. No extra budget. No timeline extension. The announcement was made above your head.',
+    question: 'How does your team absorb this?',
+    choices: [
+      {
+        text: 'Your team reorganizes around strengths — someone maps new responsibilities to the right people without being asked.',
+        archetypes_helped: ['underdog', 'battle_tested', 'truth_teller', 'sleeper'],
+        archetypes_hurt: ['yes_man', 'brilliant_fraudster', 'framework_addict'],
+        outcome_good: 'The transition is harder than expected, but your team bends rather than breaks. The people who step up get noticed — including by you.',
+        outcome_bad: 'The restructure exposes how thin the bench actually is. The two new responsibilities get split between the wrong people and the quality shows.',
+        score_delta_good: 13,
+        score_delta_bad: -11,
+      },
+      {
+        text: 'You present a detailed transition plan to leadership that documents the risk clearly.',
+        archetypes_helped: ['framework_addict', 'comfortable_incumbent'],
+        archetypes_hurt: ['battle_tested', 'sleeper'],
+        outcome_good: 'Leadership appreciates the documentation. The risks are acknowledged. Nothing changes, but at least it\'s on record.',
+        outcome_bad: 'The plan lands as complaining. Leadership absorbs it politely and moves on. The team senses you fought for optics rather than outcomes.',
+        score_delta_good: 5,
+        score_delta_bad: -8,
+      },
+    ],
+  },
+  {
+    id: 's12',
+    tag: 'Month 7 — Manager Squeeze',
+    title: 'You\'re Getting It From Both Directions',
+    body: 'Your team is telling you they\'re overloaded. Your leadership is telling you the team needs to move faster. Both are right. You\'re the middle layer absorbing pressure from each side and you have about a week before something gives.',
+    question: 'How does this get navigated?',
+    choices: [
+      {
+        text: 'Someone helps you build an honest case — real numbers, real constraints — and you bring it upward.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'underdog'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'The case lands. Not perfectly, but well enough. Leadership adjusts one expectation. The team gets a window of relief. You\'ve modeled that the truth is a usable tool.',
+        outcome_bad: 'The case doesn\'t land the way you\'d hoped. But the team sees you tried, and your credibility with them holds.',
+        score_delta_good: 14,
+        score_delta_bad: -4,
+      },
+      {
+        text: 'You absorb the pressure yourself and tell both sides what they want to hear.',
+        archetypes_helped: ['yes_man', 'brilliant_fraudster'],
+        archetypes_hurt: ['truth_teller', 'battle_tested', 'underdog'],
+        outcome_good: 'You manage both sides for now. The pressure is still there. You\'ve just delayed it.',
+        outcome_bad: 'Something gives. A deadline is missed, a team member breaks down publicly, or you do. The situation that could have been managed becomes a crisis.',
+        score_delta_good: 2,
+        score_delta_bad: -16,
+      },
+    ],
+  },
 ];
+
+// Draw 5 random scenarios for this playthrough
+let SCENARIOS = [];
+
 
 // ===== GAME STATE =====
 let state = {
@@ -1030,6 +1224,8 @@ function showScreen(id) {
 
 // ===== START =====
 function startGame() {
+  // Draw 5 random scenarios from pool of 12
+  SCENARIOS = shuffle(SCENARIO_POOL).slice(0, 5);
   state = {
     budget: 500000,
     selectedCandidates: [],
@@ -1231,75 +1427,211 @@ function nextScenario() {
 
 // ===== RESULTS =====
 function getVerdict(score) {
-  if (score >= 85) return { title: 'Rare Judgment', sub: 'You hired for the team, not the optics. This is uncommon.' };
-  if (score >= 70) return { title: 'Solid Foundation', sub: 'More right than wrong. Some of your instincts need calibration.' };
-  if (score >= 50) return { title: 'Mixed Record', sub: 'You got some of it. The gaps will compound over time.' };
-  if (score >= 30) return { title: 'The Warning Signs Were There', sub: 'Your selections revealed more about what you wanted to avoid than what you wanted to build.' };
-  return { title: 'A Culture By Default', sub: 'You built a team that mirrors your blind spots. These teams exist everywhere.' };
+  if (score >= 85) return {
+    title: 'Rare Judgment',
+    sub: 'You hired for the team, not the optics. This is genuinely uncommon.',
+    analysis: 'Your selections reflect someone who knows what they\'re actually looking for — and isn\'t easily distracted by polish, confidence, or credentials that don\'t translate into team performance. Leaders who score here tend to hire people who make the team stronger rather than people who make the leader feel safe. The scenarios bore that out. When pressure came, your team had the composition to respond well because you built it with the right people, not just the obvious ones.',
+    blind_spot: 'Watch for overconfidence in your own judgment. High-judgment leaders sometimes stop pressure-testing their instincts because past success feels like proof. It isn\'t — it\'s evidence. Keep surrounding yourself with people who will tell you when you\'re wrong.',
+    score_color: '#27ae60',
+  };
+  if (score >= 70) return {
+    title: 'Solid Foundation',
+    sub: 'More right than wrong. Some instincts need calibration.',
+    analysis: 'You made more good calls than bad ones — both in who you hired and how you responded when things got hard. Your team had enough of the right composition to navigate most situations, but there were moments where the gaps showed. A few of your hires were selected for reasons that felt right in the room but created friction later. The good news: leaders at this level are usually self-aware enough to course-correct. The ones who don\'t are the ones who mistake a solid record for a perfect one.',
+    blind_spot: 'Look at which scenarios cost you points. There\'s likely a pattern — either in the types of people you avoided hiring, or in the types of decisions you defaulted to under pressure. That pattern is more instructive than the overall score.',
+    score_color: '#2980b9',
+  };
+  if (score >= 50) return {
+    title: 'Mixed Record',
+    sub: 'You got some of it. The gaps will compound over time.',
+    analysis: 'Your results reflect something that\'s actually very common: a team built partly on instinct, partly on comfort, and partly on what looked good at the time. Some of your hires were genuinely strong. Others were selected for reasons that had more to do with your preferences than the team\'s needs. In the scenarios, that tension played out. When the situation needed something your team couldn\'t provide, the cost was real — and repeatable. Mixed teams don\'t always fail. But they force the leader to compensate constantly for gaps that better composition would have eliminated.',
+    blind_spot: 'The most important question isn\'t what you got wrong — it\'s why. Were you drawn to candidates who felt familiar? Who reflected your own style? Who didn\'t challenge you in the interview? The answer usually lives in the hiring decision you felt most certain about.',
+    score_color: '#d4a843',
+  };
+  if (score >= 30) return {
+    title: 'The Warning Signs Were There',
+    sub: 'Your selections revealed more about what you wanted to avoid than what you wanted to build.',
+    analysis: 'Your team composition created recurring problems — not because you hired bad people, but because the pattern of who you hired reflected something other than team strength. Leaders who score here often hire for comfort, for optics, or for loyalty rather than capability and complementarity. The scenarios were hard because the team wasn\'t built to handle them. When pressure came, there wasn\'t enough candor, resilience, or judgment in the room to respond well. This is one of the most common leadership failure modes — and one of the least discussed, because it\'s easy to blame the situations rather than the selections.',
+    blind_spot: 'Tasha Eurich\'s research found that leaders who lack self-awareness build teams that protect their blind spots rather than challenge them. Look at your hires honestly: how many of them would genuinely tell you when you\'re wrong? If the answer is zero or one, that\'s the pattern.',
+    score_color: '#e67e22',
+  };
+  return {
+    title: 'A Culture By Default',
+    sub: 'You built a team that mirrors your blind spots. These teams exist everywhere.',
+    analysis: 'Your selections and your decisions under pressure tell a consistent story — one where comfort, optics, and avoiding friction drove more choices than you may have realized. Teams built this way don\'t always look broken from the outside. They often look fine right up until a real crisis hits. Then the culture that was set by default — around the lowest standard tolerated, around who got protected, around what kind of honesty was actually welcome — determines everything. Jim Collins\' research found that the worst-performing organizations didn\'t usually fail because of strategy. They failed because the wrong people were on the bus, making decisions the right people would never have made.',
+    blind_spot: 'The hardest insight here isn\'t about the team — it\'s about what your choices reveal about your self-awareness as a leader. Start there. Ask who in your real life actually pushes back on you. If no one comes to mind, that\'s the first problem to solve.',
+    score_color: '#c0392b',
+  };
 }
 
-function getInsight() {
+function getArchetypeInsights() {
   const archetypes = getTeamArchetypes();
   const insights = [];
 
-  if (archetypes.includes('brilliant_jerk')) insights.push('You hired for output over culture. Short-term gains, long-term costs.');
-  if (archetypes.includes('yes_man')) insights.push('You brought in someone who will tell you what you want to hear. That\'s comfortable. It\'s also dangerous.');
-  if (archetypes.includes('brilliant_fraudster')) insights.push('You were impressed by the presentation. The presentation was the product.');
-  if (archetypes.includes('underdog')) insights.push('You gave someone a chance who didn\'t look like the obvious choice. That\'s real judgment.');
-  if (archetypes.includes('truth_teller')) insights.push('You hired someone who will push back. That takes confidence in yourself.');
-  if (archetypes.includes('battle_tested')) insights.push('You saw the failure on the resume as evidence of judgment, not disqualification. Good.');
-  if (archetypes.includes('sleeper')) insights.push('You noticed something in someone others kept passing over. That\'s the skill that compounds.');
-  if (archetypes.includes('raw_talent')) insights.push('You made a bet on potential. The return depends on whether you actually develop them.');
+  const ARCHETYPE_INSIGHTS = {
+    brilliant_jerk: {
+      label: 'You hired the Brilliant Jerk',
+      text: 'Results-first hiring is one of the most seductive traps in leadership. The data on high-performing individuals with poor interpersonal behavior is consistent: their output shows up in metrics, and their damage shows up in attrition, morale, and the quiet exit of people who were too good to put up with it.',
+    },
+    yes_man: {
+      label: 'You hired a Yes Man',
+      text: 'Someone on your team tells you what you want to hear. That feels like alignment — but it\'s actually insulation from reality. Leaders who surround themselves with agreement don\'t get better feedback loops. They get slower ones, and they find out later.',
+    },
+    brilliant_fraudster: {
+      label: 'You hired the Impressive Presenter',
+      text: 'The resume dazzled. The interview went well. The six-month review was harder to explain. This is one of the most common hiring failure modes — selecting for the performance of competence rather than competence itself.',
+    },
+    underdog: {
+      label: 'You gave the Underdog a shot',
+      text: 'Hiring someone who doesn\'t look like the obvious choice takes real confidence. It means you were evaluating for something beyond credentials and presentation. That\'s the kind of judgment that builds teams others can\'t replicate — because they\'re still optimizing for the wrong signals.',
+    },
+    truth_teller: {
+      label: 'You hired someone who will push back',
+      text: 'This is rarer than it sounds. Most leaders say they want honest feedback. Fewer actually hire for it. The fact that you brought in someone who will challenge you — and that you were comfortable doing so — says something meaningful about your self-awareness.',
+    },
+    battle_tested: {
+      label: 'You hired the person who failed forward',
+      text: 'A failure on a resume can mean someone lacks judgment. Or it can mean they learned something no one else in your candidate pool has learned. You bet on the latter. That\'s a real read.',
+    },
+    sleeper: {
+      label: 'You spotted the Sleeper',
+      text: 'Other hiring managers kept passing this person over. You saw something they didn\'t. The ability to notice value that isn\'t loudly advertised is one of the least-discussed and most important leadership skills. It compounds over time.',
+    },
+    raw_talent: {
+      label: 'You made a bet on Raw Talent',
+      text: 'Hiring potential is a bet. The return depends almost entirely on whether you actually invest in developing it — or whether the person gets left to figure it out on their own and eventually leaves for somewhere that will.',
+    },
+    framework_addict: {
+      label: 'You hired the Framework Person',
+      text: 'Smart, structured, and excellent in stable conditions. In the scenarios where things went sideways, this hire\'s limitations probably showed. The best teams have people who can operate without a playbook when they need to.',
+    },
+    comfortable_incumbent: {
+      label: 'You hired for institutional knowledge',
+      text: 'Network and history are real assets. So is resistance to change. The question isn\'t whether this person brought value — they probably did. It\'s whether that value came with a tax on the team\'s ability to evolve.',
+    },
+  };
 
-  return insights.slice(0, 3).join(' ');
+  archetypes.forEach(a => {
+    if (ARCHETYPE_INSIGHTS[a]) insights.push(ARCHETYPE_INSIGHTS[a]);
+  });
+  return insights;
+}
+
+function getScenarioBreakdown() {
+  return state.scenarioResults.map((r, i) => ({
+    num: i + 1,
+    title: r.scenario.title,
+    good: r.teamGood,
+    outcome: r.outcomeText,
+    delta: r.scoreDelta,
+  }));
+}
+
+function getPatternAnalysis() {
+  const goodCount = state.scenarioResults.filter(r => r.teamGood).length;
+  const badCount = state.scenarioResults.filter(r => !r.teamGood).length;
+  const archetypes = getTeamArchetypes();
+  const liabilities = state.selectedCandidates.filter(c => c.value === 'liability').length;
+  const assets = state.selectedCandidates.filter(c => c.value === 'asset').length;
+
+  const patterns = [];
+
+  if (liabilities >= 3) patterns.push('You hired more liabilities than assets — a team built primarily on comfort, optics, or impressive surfaces.');
+  if (assets >= 4) patterns.push('You built an unusually strong team. Four or more genuine assets is rare and reflects deliberate, self-aware selection.');
+  if (archetypes.filter(a => ['yes_man', 'brilliant_fraudster', 'comfortable_incumbent'].includes(a)).length >= 2) {
+    patterns.push('Multiple hires suggest a pattern of selecting for safety — people who won\'t challenge you, won\'t surprise you, and won\'t threaten the status quo.');
+  }
+  if (archetypes.filter(a => ['truth_teller', 'battle_tested', 'underdog', 'sleeper'].includes(a)).length >= 3) {
+    patterns.push('You consistently hired against the obvious choice. That takes confidence and genuine self-awareness — the kind Collins and Eurich both identify as the foundation of sustained team performance.');
+  }
+  if (goodCount >= 4) patterns.push('Your team handled most of what was thrown at them. That\'s a direct function of composition — the right people created the right responses.');
+  if (badCount >= 4) patterns.push('Your team struggled through most of the scenarios. That\'s not bad luck — it\'s a hiring problem that played out in real time.');
+
+  return patterns;
 }
 
 function renderResults() {
   const verdict = getVerdict(state.score);
-  const insight = getInsight();
+  const archetypeInsights = getArchetypeInsights();
+  const scenarioBreakdown = getScenarioBreakdown();
+  const patterns = getPatternAnalysis();
   const container = document.getElementById('results-content');
 
   const teamAutopsy = state.selectedCandidates.map(c => ({
     name: c.name,
     verdict: c.value,
     label: c.value === 'asset' ? 'Asset' : c.value === 'liability' ? 'Liability' : 'Variable',
+    insight: c.insight,
   }));
 
   container.innerHTML = `
     <div class="results-score-display">
-      <div class="score-ring">
-        <div class="score-number">${state.score}</div>
+      <div class="score-ring" style="border-color: ${verdict.score_color}">
+        <div class="score-number" style="color: ${verdict.score_color}">${state.score}</div>
         <div class="score-max">/ 100</div>
       </div>
       <div class="verdict-title">${verdict.title}</div>
       <div class="verdict-sub">${verdict.sub}</div>
     </div>
 
+    <div class="insights-box" style="border-color: ${verdict.score_color}; margin-bottom: 24px;">
+      <h3>What This Score Means</h3>
+      <p>${verdict.analysis}</p>
+    </div>
+
     <div class="team-autopsy">
-      <div class="autopsy-label">Team Autopsy</div>
+      <div class="autopsy-label">Team Autopsy — What Each Hire Actually Was</div>
       ${teamAutopsy.map(t => `
-        <div class="autopsy-item">
-          <div class="autopsy-name">${t.name}</div>
-          <div class="autopsy-verdict ${t.verdict}">${t.label}</div>
+        <div class="autopsy-item" style="flex-direction: column; align-items: flex-start; gap: 6px; padding: 16px 0;">
+          <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+            <div class="autopsy-name">${t.name}</div>
+            <div class="autopsy-verdict ${t.verdict}">${t.label}</div>
+          </div>
+          <div style="font-size: 12px; color: var(--text-dim); line-height: 1.5;">${t.insight}</div>
         </div>
       `).join('')}
     </div>
 
-    ${insight ? `
-    <div class="insights-box">
-      <h3>What Your Picks Revealed</h3>
-      <p>${insight}</p>
+    ${patterns.length > 0 ? `
+    <div class="insights-box" style="margin-top: 24px;">
+      <h3>Hiring Patterns</h3>
+      ${patterns.map(p => `<p>${p}</p>`).join('')}
     </div>
     ` : ''}
 
-    <div class="insights-box" style="border-color: var(--text-muted)">
+    <div class="insights-box" style="margin-top: 24px;">
+      <h3>Your Hires, One by One</h3>
+      ${archetypeInsights.map(a => `
+        <p><strong style="color: var(--text);">${a.label}.</strong> ${a.text}</p>
+      `).join('')}
+    </div>
+
+    <div class="insights-box" style="margin-top: 24px; border-color: var(--border);">
+      <h3>Scenario Breakdown</h3>
+      ${scenarioBreakdown.map(s => `
+        <div style="padding: 10px 0; border-bottom: 1px solid var(--border);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--text);">${s.title}</div>
+            <div style="font-family: 'DM Mono', monospace; font-size: 12px; color: ${s.delta >= 0 ? '#27ae60' : '#c0392b'};">${s.delta >= 0 ? '+' : ''}${s.delta} pts</div>
+          </div>
+          <div style="font-size: 12px; color: var(--text-dim); line-height: 1.5;">${s.outcome}</div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="insights-box" style="margin-top: 24px; border-color: var(--text-muted);">
+      <h3>Your Blind Spot to Watch</h3>
+      <p>${verdict.blind_spot}</p>
+    </div>
+
+    <div class="insights-box" style="margin-top: 24px; border-color: var(--text-muted);">
       <h3>The Principle</h3>
       <p>Your team is the most public expression of your values as a leader. Every hire is a statement — about what you reward, what you tolerate, and what kind of culture you're willing to build or protect.</p>
       <p>The candidates who impressed you most weren't always the ones who served the team best. That gap is worth sitting with.</p>
     </div>
 
     <div class="results-actions">
-      <button class="btn btn-primary" onclick="startGame()">Play Again</button>
+      <button class="btn btn-primary" onclick="showScreen('intro')">Play Again</button>
     </div>
   `;
 }
