@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Hire Wire</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=DM+Mono:wght@400;500&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=DM+Mono:wght@400;500&display=swap"></noscript>
 <style>
   :root {
     --bg: #0f0e0c;
@@ -17,8 +20,8 @@
     --green: #27ae60;
     --blue: #2980b9;
     --text: #e8e4dc;
-    --text-dim: #8a8578;
-    --text-muted: #4a4840;
+    --text-dim: #a09890;
+    --text-muted: #706860;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -197,7 +200,7 @@
 
   .budget-label {
     font-size: 11px;
-    color: var(--text-muted);
+    color: var(--text-dim);
     letter-spacing: 2px;
     text-transform: uppercase;
   }
@@ -271,7 +274,7 @@
 
   .cand-role {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 2px;
     color: var(--gold);
     text-transform: uppercase;
@@ -314,11 +317,26 @@
     color: var(--text);
   }
 
-  .cand-bio {
+  .candidate-card.over-budget {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .over-budget-label {
+    margin-top: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--red);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+
     margin-top: 12px;
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-dim);
-    line-height: 1.5;
+    line-height: 1.6;
     border-top: 1px solid var(--border);
     padding-top: 12px;
   }
@@ -333,9 +351,9 @@
 
   .team-preview-label {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    color: var(--text-dim);
     text-transform: uppercase;
     margin-bottom: 14px;
   }
@@ -350,7 +368,7 @@
     padding: 8px 14px;
     border: 1px dashed var(--border);
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--text-dim);
     font-family: 'DM Mono', monospace;
     transition: all 0.2s;
   }
@@ -393,8 +411,8 @@
 
   .scenario-tag {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 3px;
+    font-size: 11px;
+    letter-spacing: 2.5px;
     color: var(--gold);
     text-transform: uppercase;
     margin-bottom: 16px;
@@ -466,27 +484,28 @@
 
   .outcome-reveal .outcome-label {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    color: var(--gold);
     text-transform: uppercase;
     margin-bottom: 10px;
   }
 
   .outcome-reveal p {
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 1.7;
     color: var(--text-dim);
   }
 
   .outcome-reveal .score-delta {
-    margin-top: 12px;
+    margin-top: 14px;
     font-family: 'DM Mono', monospace;
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 500;
   }
 
-  .score-delta.pos { color: var(--green); }
-  .score-delta.neg { color: var(--red); }
+  .score-delta.pos { color: #4ac87a; }
+  .score-delta.neg { color: #e05c4a; }
   .score-delta.neu { color: var(--text-dim); }
 
   /* ===== RESULTS ===== */
@@ -522,8 +541,8 @@
 
   .score-max {
     font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--text-muted);
+    font-size: 14px;
+    color: var(--text-dim);
   }
 
   .verdict-title {
@@ -533,7 +552,7 @@
   }
 
   .verdict-sub {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-dim);
     font-style: italic;
     margin-bottom: 32px;
@@ -546,9 +565,9 @@
 
   .autopsy-label {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold);
     text-transform: uppercase;
     margin-bottom: 16px;
   }
@@ -563,18 +582,20 @@
 
   .autopsy-name {
     font-weight: 600;
-    font-size: 14px;
+    font-size: 15px;
+    color: var(--text);
   }
 
   .autopsy-verdict {
     font-size: 12px;
     font-family: 'DM Mono', monospace;
     padding: 4px 10px;
+    letter-spacing: 1px;
   }
 
-  .autopsy-verdict.asset { color: var(--green); background: rgba(39,174,96,0.1); }
-  .autopsy-verdict.liability { color: var(--red); background: rgba(192,57,43,0.1); }
-  .autopsy-verdict.neutral { color: var(--text-dim); background: var(--surface); }
+  .autopsy-verdict.asset { color: var(--green); background: rgba(39,174,96,0.12); }
+  .autopsy-verdict.liability { color: #e05c4a; background: rgba(192,57,43,0.14); }
+  .autopsy-verdict.neutral { color: var(--text-dim); background: var(--surface2); }
 
   .insights-box {
     background: var(--surface);
@@ -587,7 +608,7 @@
   .insights-box h3 {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
-    letter-spacing: 3px;
+    letter-spacing: 2.5px;
     color: var(--gold);
     text-transform: uppercase;
     margin-bottom: 14px;
@@ -595,9 +616,9 @@
 
   .insights-box p {
     font-size: 14px;
-    line-height: 1.7;
+    line-height: 1.75;
     color: var(--text-dim);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
 
   .results-actions {
@@ -609,15 +630,8 @@
   }
 
   /* ===== UTILITY ===== */
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 32px 0;
-  }
-
   .text-center { text-align: center; }
   .mt-24 { margin-top: 24px; }
-  .mt-40 { margin-top: 40px; }
 
   .warning-text {
     color: var(--red);
@@ -637,6 +651,12 @@
 </style>
 </head>
 <body>
+<noscript>
+  <div style="font-family:sans-serif;text-align:center;padding:80px 20px;color:#e8e4dc;background:#0f0e0c;min-height:100vh;">
+    <h2 style="font-size:28px;margin-bottom:12px;">The Hire Wire requires JavaScript</h2>
+    <p style="color:#8a8578;">Please enable JavaScript in your browser to play.</p>
+  </div>
+</noscript>
 <div id="game">
 
   <!-- INTRO SCREEN -->
@@ -676,8 +696,8 @@
       <div class="phase-title">The Candidate Pool</div>
       <div class="phase-meta">
         <div class="budget-label">Remaining Budget</div>
-        <div class="budget-display" id="budget-display">$500,000</div>
-        <div class="slots-display" id="slots-display">5 seats open</div>
+        <div class="budget-display" id="budget-display" aria-live="polite" aria-label="Remaining budget">$500,000</div>
+        <div class="slots-display" id="slots-display" aria-live="polite">5 seats open</div>
       </div>
     </div>
 
@@ -688,7 +708,7 @@
 
     <div class="candidates-grid" id="candidates-grid"></div>
 
-    <div class="warning-text" id="hire-warning"></div>
+    <div class="warning-text" id="hire-warning" aria-live="assertive" role="alert"></div>
     <div class="text-center mt-24">
       <button class="btn btn-primary" onclick="proceedToScenarios()" id="proceed-btn">Go To Scenarios →</button>
     </div>
@@ -699,7 +719,7 @@
     <div class="scenario-container">
       <div class="scenario-progress" id="scenario-progress"></div>
       <div id="scenario-content"></div>
-      <div id="scenario-outcome" style="display:none"></div>
+      <div id="scenario-outcome" aria-live="polite" style="display:none"></div>
       <div class="text-center mt-24" id="scenario-next" style="display:none">
         <button class="btn btn-primary" onclick="nextScenario()">Next →</button>
       </div>
@@ -855,10 +875,11 @@ const CANDIDATE_POOL = [
   },
 ];
 
-// Full pool of 12 scenarios — 5 drawn randomly each playthrough
+// Full pool of 26 scenarios — 5 drawn randomly each playthrough, then sorted by month
 const SCENARIO_POOL = [
   {
     id: 's1',
+    month: 2,
     tag: 'Month 2 — Reality Check',
     title: 'The Plan Hits a Wall',
     body: 'Your Q1 strategy just got revised — by someone three levels above you — without your input. The timeline shortened, the scope expanded, and your team is already stretched. Morale is fragile.',
@@ -870,8 +891,7 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['yes_man', 'framework_addict'],
         outcome_good: 'Your team steadies. Someone names the situation clearly, acknowledges the frustration, and gets people oriented toward what they can control. The week stays productive.',
         outcome_bad: 'The void of leadership in the moment creates a rumor cycle. Three people start job-hunting.',
-        score_delta_good: 12,
-        score_delta_bad: -10,
+        score_delta_good: 12, score_delta_bad: -10,
       },
       {
         text: 'You call an all-hands and present a revised framework. Structure will steady people.',
@@ -879,13 +899,29 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['truth_teller', 'battle_tested'],
         outcome_good: 'The framework helps. People at least know what boxes to put things in. The real problems don\'t go away, but they\'re managed.',
         outcome_bad: 'The all-hands creates more anxiety. People sense the plan doesn\'t actually account for the new reality. The framework feels like theater.',
-        score_delta_good: 6,
-        score_delta_bad: -6,
+        score_delta_good: 6, score_delta_bad: -6,
+      },
+      {
+        text: 'You absorb the news quietly and tell your team things are under control. Don\'t add to the noise.',
+        archetypes_helped: ['comfortable_incumbent', 'yes_man'],
+        archetypes_hurt: ['truth_teller', 'underdog', 'sleeper'],
+        outcome_good: 'Things stabilize without drama. People sense something is off but trust the calm signal.',
+        outcome_bad: 'The team fills the information void with rumors. When the truth surfaces, your credibility takes a hit for not being straight with them.',
+        score_delta_good: 3, score_delta_bad: -12,
+      },
+      {
+        text: 'You escalate back upward — push for your team\'s input on the revised plan before it locks.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'sleeper'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'You don\'t win everything back, but you get one key constraint adjusted. The team sees you fought for them.',
+        outcome_bad: 'The pushback lands poorly. You\'re told to execute the plan as written. The team appreciates the attempt but the result is the same.',
+        score_delta_good: 10, score_delta_bad: -4,
       },
     ],
   },
   {
     id: 's2',
+    month: 3,
     tag: 'Month 3 — Performance Issue',
     title: 'The Star Is Burning the Team',
     body: 'Your highest-performing individual is producing results — and also quietly making three colleagues miserable. Two people have come to you privately. The performer doesn\'t see a problem. Results are real. Damage is real.',
@@ -897,8 +933,7 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['yes_man', 'brilliant_jerk'],
         outcome_good: 'The feedback conversation happens. It\'s uncomfortable. It shifts something. The performer adjusts — not perfectly, but meaningfully.',
         outcome_bad: 'No one holds the mirror. The situation festers. One colleague submits a resignation letter.',
-        score_delta_good: 14,
-        score_delta_bad: -14,
+        score_delta_good: 14, score_delta_bad: -14,
       },
       {
         text: 'You let results speak. High performance protects itself.',
@@ -906,13 +941,29 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['sleeper', 'underdog', 'truth_teller'],
         outcome_good: 'The performer keeps delivering. The friction stays manageable — barely.',
         outcome_bad: 'Two quiet contributors who were holding the team together quietly start looking for exits. The team\'s culture begins to set around the wrong standard.',
-        score_delta_good: 4,
-        score_delta_bad: -16,
+        score_delta_good: 4, score_delta_bad: -16,
+      },
+      {
+        text: 'You speak to the performer directly but frame it as coaching, not a warning.',
+        archetypes_helped: ['truth_teller', 'battle_tested'],
+        archetypes_hurt: ['brilliant_jerk', 'yes_man'],
+        outcome_good: 'The performer takes it seriously because it came from you, not a peer. Behavior shifts. Not a transformation, but enough.',
+        outcome_bad: 'The coaching frame softens the message too much. The performer hears feedback but not urgency. The behavior continues.',
+        score_delta_good: 10, score_delta_bad: -8,
+      },
+      {
+        text: 'You separate the two issues: address the performance publicly, address the behavior privately.',
+        archetypes_helped: ['sleeper', 'underdog', 'framework_addict'],
+        archetypes_hurt: ['brilliant_jerk', 'comfortable_incumbent'],
+        outcome_good: 'The separation is appreciated by the team. The performer understands the seriousness. Both tracks move forward.',
+        outcome_bad: 'The split approach muddies the message. The performer feels targeted. The affected colleagues feel like the behavior was minimized.',
+        score_delta_good: 8, score_delta_bad: -10,
       },
     ],
   },
   {
     id: 's3',
+    month: 5,
     tag: 'Month 5 — Crisis Mode',
     title: 'Something Goes Publicly Wrong',
     body: 'A miscommunication with a key stakeholder becomes a minor PR situation. Leadership above you wants a scapegoat. Someone on your team made the call. It wasn\'t the wrong call — context changed after.',
@@ -924,8 +975,7 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['yes_man', 'brilliant_fraudster'],
         outcome_good: 'Leadership respects the clarity. The person who made the call is protected. Trust in your team goes up internally.',
         outcome_bad: 'No one is willing to be fully honest. The account is muddy. The scapegoat gets offered up.',
-        score_delta_good: 16,
-        score_delta_bad: -18,
+        score_delta_good: 16, score_delta_bad: -18,
       },
       {
         text: 'Someone manages the narrative upward while the team quietly adjusts the story.',
@@ -933,13 +983,21 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['truth_teller', 'sleeper'],
         outcome_good: 'The story holds. Leadership is satisfied. Nothing changes inside.',
         outcome_bad: 'The spin doesn\'t fully land. Leadership senses something is off. Your credibility takes a quiet hit that will compound later.',
-        score_delta_good: 2,
-        score_delta_bad: -12,
+        score_delta_good: 2, score_delta_bad: -12,
+      },
+      {
+        text: 'You take personal responsibility to leadership and protect your team member from the fallout.',
+        archetypes_helped: ['battle_tested', 'truth_teller', 'underdog'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'Leadership pushes back initially but respects the accountability. Your team member is protected. Your team\'s loyalty to you goes up a level.',
+        outcome_bad: 'Leadership accepts your accountability but the political cost is real. You absorb a hit that didn\'t have to be yours.',
+        score_delta_good: 14, score_delta_bad: -6,
       },
     ],
   },
   {
     id: 's4',
+    month: 7,
     tag: 'Month 7 — Growth Moment',
     title: 'A Stretch Opportunity Appears',
     body: 'Cross-functional leadership wants a representative from your team to lead a company-wide initiative. It\'s high visibility, hard work, and a real development opportunity. You need to decide who to put forward.',
@@ -951,8 +1009,7 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['brilliant_fraudster', 'yes_man'],
         outcome_good: 'The choice surprises people — and then it doesn\'t. Your pick grows into the role. You\'ve now built someone who\'ll carry more.',
         outcome_bad: 'No one on your team has the readiness because you didn\'t hire for potential. You send someone who looks right. They struggle.',
-        score_delta_good: 14,
-        score_delta_bad: -8,
+        score_delta_good: 14, score_delta_bad: -8,
       },
       {
         text: 'You send whoever makes your team look best externally.',
@@ -960,13 +1017,21 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['sleeper', 'raw_talent', 'underdog'],
         outcome_good: 'Optics are good. The initiative goes fine. No one grew.',
         outcome_bad: 'The pick struggles publicly. You\'ve now spent political capital and gotten nothing back.',
-        score_delta_good: 3,
-        score_delta_bad: -10,
+        score_delta_good: 3, score_delta_bad: -10,
+      },
+      {
+        text: 'You ask your team who wants it before you decide. Ownership starts with the ask.',
+        archetypes_helped: ['truth_teller', 'underdog', 'raw_talent'],
+        archetypes_hurt: ['comfortable_incumbent', 'brilliant_fraudster'],
+        outcome_good: 'The right person raises their hand. You confirm what you already suspected and they feel chosen rather than assigned.',
+        outcome_bad: 'The wrong person raises their hand — loudest, not best. Now you have to choose between what the team heard and what you actually need.',
+        score_delta_good: 11, score_delta_bad: -7,
       },
     ],
   },
   {
     id: 's5',
+    month: 9,
     tag: 'Month 9 — The Hard Truth',
     title: 'Someone Has to Go',
     body: 'After nine months, it\'s clear one of your hires isn\'t working. Not a bad person — wrong fit, wrong role, wrong time. You\'ve had conversations. The situation isn\'t improving. Others are being affected.',
@@ -978,8 +1043,7 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
         outcome_good: 'The exit is handled well. The team notices. Your willingness to make hard calls with dignity raises the standard of the whole environment.',
         outcome_bad: 'No one on the team models directness. The situation drags. The rest of the team adapts down to tolerate the problem.',
-        score_delta_good: 16,
-        score_delta_bad: -14,
+        score_delta_good: 16, score_delta_bad: -14,
       },
       {
         text: 'You manage around the problem and hope performance improves.',
@@ -987,13 +1051,21 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['truth_teller', 'battle_tested'],
         outcome_good: 'The person self-selects out three months later. Pain delayed.',
         outcome_bad: 'The team loses faith in your willingness to make hard calls. Quietly, a few of your best people recalibrate their expectations of leadership.',
-        score_delta_good: 2,
-        score_delta_bad: -16,
+        score_delta_good: 2, score_delta_bad: -16,
+      },
+      {
+        text: 'You explore a lateral move — different role, different team. Keep the person, change the context.',
+        archetypes_helped: ['sleeper', 'battle_tested', 'truth_teller'],
+        archetypes_hurt: ['brilliant_jerk', 'comfortable_incumbent'],
+        outcome_good: 'The lateral works. The person finds their footing somewhere else. You\'ve solved the problem without the cost of an exit.',
+        outcome_bad: 'The lateral delays the inevitable and moves the problem to another team. You\'ve bought time at someone else\'s expense.',
+        score_delta_good: 9, score_delta_bad: -8,
       },
     ],
   },
   {
     id: 's6',
+    month: 3,
     tag: 'Month 3 — Credit & Visibility',
     title: 'The Credit Grab',
     body: 'A peer leader from another department presents your team\'s work to the executive team — and doesn\'t mention your team at all. Your people saw it happen. They\'re waiting to see what you do.',
@@ -1005,8 +1077,7 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
         outcome_good: 'The record gets corrected. Your team sees that you protect them. Their trust in you goes up a notch — quietly, but meaningfully.',
         outcome_bad: 'No one challenges it. The peer gets credit. Your team draws a conclusion about what loyalty means here and adjusts their behavior accordingly.',
-        score_delta_good: 13,
-        score_delta_bad: -12,
+        score_delta_good: 13, score_delta_bad: -12,
       },
       {
         text: 'You let it go to preserve the relationship. Politics are part of the game.',
@@ -1014,13 +1085,21 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['truth_teller', 'sleeper', 'underdog'],
         outcome_good: 'The relationship stays smooth. The slight is forgotten — by everyone except the people on your team who worked hardest on that project.',
         outcome_bad: 'Your best contributors quietly wonder whether working hard under your leadership has any upside. One starts updating their resume.',
-        score_delta_good: 2,
-        score_delta_bad: -14,
+        score_delta_good: 2, score_delta_bad: -14,
+      },
+      {
+        text: 'You follow up by ensuring your team\'s names are on the work in writing — emails, docs, attribution.',
+        archetypes_helped: ['sleeper', 'truth_teller', 'underdog'],
+        archetypes_hurt: ['comfortable_incumbent', 'yes_man'],
+        outcome_good: 'The attribution gets established on the record. The peer doesn\'t fight it. Your team sees you acted without making it a drama.',
+        outcome_bad: 'The paper trail surfaces too late. The work has already been credited elsewhere. The team appreciates the effort but the moment has passed.',
+        score_delta_good: 9, score_delta_bad: -6,
       },
     ],
   },
   {
     id: 's7',
+    month: 6,
     tag: 'Month 6 — Retention Alarm',
     title: 'Your Best Person Got an Offer',
     body: 'Your strongest contributor — the one the whole team quietly relies on — just told you they have a competing offer. It\'s real. The number is higher than what you can immediately authorize. They\'re not making an ultimatum. They\'re telling you because they respect you.',
@@ -1032,22 +1111,29 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
         outcome_good: 'You don\'t win every time. But this time you do. The person stays. More importantly, they remember that you fought for them.',
         outcome_bad: 'You go to bat but come back empty-handed. They leave. But the rest of the team sees that you tried — which matters for what comes next.',
-        score_delta_good: 15,
-        score_delta_bad: -6,
+        score_delta_good: 15, score_delta_bad: -6,
       },
       {
-        text: 'You wish them well and start the backfill process. Loyalty is a two-way street and the market is the market.',
+        text: 'You wish them well and start the backfill process. Loyalty is a two-way street.',
         archetypes_helped: ['comfortable_incumbent', 'framework_addict'],
         archetypes_hurt: ['raw_talent', 'sleeper', 'underdog'],
         outcome_good: 'They leave cleanly. The transition is smooth. You lose institutional knowledge you\'ll spend six months rebuilding.',
         outcome_bad: 'Word gets around that you didn\'t fight for them. Two other high performers recalibrate their own timelines for leaving.',
-        score_delta_good: 1,
-        score_delta_bad: -15,
+        score_delta_good: 1, score_delta_bad: -15,
+      },
+      {
+        text: 'You have a candid conversation about what they actually need — money, growth, recognition — before going anywhere.',
+        archetypes_helped: ['truth_teller', 'sleeper', 'underdog'],
+        archetypes_hurt: ['brilliant_fraudster', 'yes_man'],
+        outcome_good: 'The conversation surfaces that the offer is partly about money and partly about feeling invisible. You address both. They stay — and the stay is more durable.',
+        outcome_bad: 'The conversation is honest but reveals something you can\'t fix. The offer is better than anything you can match. At least you know the real reason.',
+        score_delta_good: 12, score_delta_bad: -4,
       },
     ],
   },
   {
     id: 's8',
+    month: 4,
     tag: 'Month 4 — Burnout Signal',
     title: 'Someone Is Running on Empty',
     body: 'One of your most reliable team members has gone quiet. Deliverables are still coming in on time — barely — but you\'ve noticed the energy shift. They\'re first off every call, shortest in every response. Nobody else has flagged it.',
@@ -1059,22 +1145,29 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['brilliant_jerk', 'yes_man'],
         outcome_good: 'You have a real conversation. You adjust their workload. Nothing dramatic — but they notice that you noticed. That\'s often enough.',
         outcome_bad: 'The conversation happens but lands awkwardly. They appreciate the intent, but the team culture around them doesn\'t support real recovery.',
-        score_delta_good: 14,
-        score_delta_bad: -4,
+        score_delta_good: 14, score_delta_bad: -4,
       },
       {
         text: 'Results are still coming in. You flag it mentally and give it another month.',
         archetypes_helped: ['brilliant_fraudster', 'comfortable_incumbent'],
         archetypes_hurt: ['sleeper', 'underdog', 'raw_talent'],
         outcome_good: 'They work through it on their own. This time.',
-        outcome_bad: 'They submit a two-week notice three weeks later. In the exit interview they say they felt invisible. You weren\'t wrong — you just waited too long.',
-        score_delta_good: 2,
-        score_delta_bad: -16,
+        outcome_bad: 'They submit a two-week notice three weeks later. In the exit interview they say they felt invisible.',
+        score_delta_good: 2, score_delta_bad: -16,
+      },
+      {
+        text: 'You redistribute some of their workload without making it a conversation. Let the pressure drop quietly.',
+        archetypes_helped: ['sleeper', 'underdog', 'framework_addict'],
+        archetypes_hurt: ['truth_teller', 'comfortable_incumbent'],
+        outcome_good: 'The workload shift gives them room to breathe. They recover without having to admit they were struggling.',
+        outcome_bad: 'The redistribution doesn\'t address the underlying cause. The burnout continues. Eventually it surfaces in a way you can\'t quietly manage.',
+        score_delta_good: 7, score_delta_bad: -10,
       },
     ],
   },
   {
     id: 's9',
+    month: 8,
     tag: 'Month 8 — Institutional Resistance',
     title: 'The Old Way Has a Defender',
     body: 'You\'re rolling out a new process that would meaningfully improve how the team operates. One team member — experienced, well-connected, respected by the old guard — is openly skeptical and their body language in meetings is louder than their words.',
@@ -1085,23 +1178,38 @@ const SCENARIO_POOL = [
         archetypes_helped: ['sleeper', 'underdog', 'truth_teller', 'battle_tested'],
         archetypes_hurt: ['brilliant_fraudster', 'yes_man'],
         outcome_good: 'The resistant voice gets acknowledged rather than steamrolled. They don\'t become a champion — but they stop being a blocker. The rollout sticks.',
-        outcome_bad: 'Nobody bridges the gap. The change gets implemented on paper. The culture around it never shifts. Six months later you\'re wondering why adoption is at 40%.',
-        score_delta_good: 12,
-        score_delta_bad: -10,
+        outcome_bad: 'Nobody bridges the gap. The change gets implemented on paper. The culture around it never shifts.',
+        score_delta_good: 12, score_delta_bad: -10,
       },
       {
         text: 'You move forward on the timeline regardless. Resistance is part of every change.',
         archetypes_helped: ['framework_addict', 'comfortable_incumbent'],
         archetypes_hurt: ['truth_teller', 'sleeper', 'battle_tested'],
         outcome_good: 'The change lands. Most people adapt. The resistant voice goes quiet — but not converted.',
-        outcome_bad: 'The rollout creates a fracture. The skeptic becomes a symbol for everyone who felt unheard. The change technically happens. The team doesn\'t.',
-        score_delta_good: 5,
-        score_delta_bad: -12,
+        outcome_bad: 'The rollout creates a fracture. The skeptic becomes a symbol for everyone who felt unheard.',
+        score_delta_good: 5, score_delta_bad: -12,
+      },
+      {
+        text: 'You involve the skeptic directly — give them a role in shaping the implementation.',
+        archetypes_helped: ['battle_tested', 'truth_teller', 'comfortable_incumbent'],
+        archetypes_hurt: ['brilliant_fraudster', 'yes_man'],
+        outcome_good: 'The skeptic\'s institutional knowledge actually improves the rollout. They become an unlikely advocate because they feel heard, not managed.',
+        outcome_bad: 'Giving the skeptic a seat at the table slows everything down. The rollout loses momentum and the window for clean implementation closes.',
+        score_delta_good: 11, score_delta_bad: -7,
+      },
+      {
+        text: 'You address the skepticism privately before the next all-hands — get to the real concern one-on-one.',
+        archetypes_helped: ['truth_teller', 'sleeper', 'underdog'],
+        archetypes_hurt: ['yes_man', 'framework_addict'],
+        outcome_good: 'The private conversation surfaces a legitimate concern you hadn\'t fully considered. You adjust one element of the plan. The body language in the next meeting is different.',
+        outcome_bad: 'The one-on-one goes fine but the skepticism was never really about the process — it was about feeling like their experience was being discarded. The rollout proceeds with quiet resistance underneath.',
+        score_delta_good: 9, score_delta_bad: -8,
       },
     ],
   },
   {
     id: 's10',
+    month: 5,
     tag: 'Month 5 — Ethics Moment',
     title: 'Someone Saw Something',
     body: 'A team member comes to you quietly. They\'ve witnessed something that concerns them — not a clear policy violation, but close. They\'re nervous. They trust you enough to bring it here first instead of going around you.',
@@ -1113,22 +1221,29 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['yes_man', 'brilliant_fraudster', 'comfortable_incumbent'],
         outcome_good: 'The situation gets reviewed properly. The person who brought it forward feels protected. Your credibility as a leader who can be trusted with hard things goes up.',
         outcome_bad: 'The formal review opens more complexity than expected. It\'s uncomfortable. But you handled it right — and the team notices that too.',
-        score_delta_good: 16,
-        score_delta_bad: 4,
+        score_delta_good: 16, score_delta_bad: 4,
       },
       {
         text: 'You reassure them it\'s probably nothing and suggest they let it go for now.',
         archetypes_helped: ['comfortable_incumbent', 'yes_man'],
         archetypes_hurt: ['truth_teller', 'sleeper', 'underdog'],
         outcome_good: 'It was probably nothing. The situation passes. You\'ll never know for certain.',
-        outcome_bad: 'The situation surfaces later through a different channel. The person who came to you first now questions whether they should have. And so does everyone they\'ve talked to since.',
-        score_delta_good: 0,
-        score_delta_bad: -18,
+        outcome_bad: 'The situation surfaces later through a different channel. The person who came to you first now questions whether they should have.',
+        score_delta_good: 0, score_delta_bad: -18,
+      },
+      {
+        text: 'You do a quiet, informal check on the situation before deciding whether to escalate.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'framework_addict'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'The informal check clarifies the picture. You can escalate with more facts and less ambiguity. The person who brought it forward feels you took it seriously without overreacting.',
+        outcome_bad: 'The informal check is perceived as looking for reasons not to act. The person who brought it to you loses confidence in the process.',
+        score_delta_good: 10, score_delta_bad: -8,
       },
     ],
   },
   {
     id: 's11',
+    month: 6,
     tag: 'Month 6 — Organizational Shift',
     title: 'The Reorg Lands on Your Team',
     body: 'Leadership announces a restructure. You\'re losing one headcount permanently and absorbing two new responsibilities from a dissolved team. No extra budget. No timeline extension. The announcement was made above your head.',
@@ -1140,22 +1255,29 @@ const SCENARIO_POOL = [
         archetypes_hurt: ['yes_man', 'brilliant_fraudster', 'framework_addict'],
         outcome_good: 'The transition is harder than expected, but your team bends rather than breaks. The people who step up get noticed — including by you.',
         outcome_bad: 'The restructure exposes how thin the bench actually is. The two new responsibilities get split between the wrong people and the quality shows.',
-        score_delta_good: 13,
-        score_delta_bad: -11,
+        score_delta_good: 13, score_delta_bad: -11,
       },
       {
         text: 'You present a detailed transition plan to leadership that documents the risk clearly.',
         archetypes_helped: ['framework_addict', 'comfortable_incumbent'],
         archetypes_hurt: ['battle_tested', 'sleeper'],
         outcome_good: 'Leadership appreciates the documentation. The risks are acknowledged. Nothing changes, but at least it\'s on record.',
-        outcome_bad: 'The plan lands as complaining. Leadership absorbs it politely and moves on. The team senses you fought for optics rather than outcomes.',
-        score_delta_good: 5,
-        score_delta_bad: -8,
+        outcome_bad: 'The plan lands as complaining. Leadership absorbs it politely and moves on.',
+        score_delta_good: 5, score_delta_bad: -8,
+      },
+      {
+        text: 'You prioritize ruthlessly with your team — explicitly drop two lower-value workstreams to make room.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'underdog'],
+        archetypes_hurt: ['comfortable_incumbent', 'framework_addict'],
+        outcome_good: 'The trade-off conversation is hard but clarifying. The team knows what matters most. The new responsibilities land without destroying the existing ones.',
+        outcome_bad: 'One of the dropped workstreams turns out to matter more than you thought. A stakeholder notices. The de-prioritization creates a new problem.',
+        score_delta_good: 11, score_delta_bad: -7,
       },
     ],
   },
   {
     id: 's12',
+    month: 7,
     tag: 'Month 7 — Manager Squeeze',
     title: 'You\'re Getting It From Both Directions',
     body: 'Your team is telling you they\'re overloaded. Your leadership is telling you the team needs to move faster. Both are right. You\'re the middle layer absorbing pressure from each side and you have about a week before something gives.',
@@ -1165,25 +1287,515 @@ const SCENARIO_POOL = [
         text: 'Someone helps you build an honest case — real numbers, real constraints — and you bring it upward.',
         archetypes_helped: ['truth_teller', 'battle_tested', 'underdog'],
         archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
-        outcome_good: 'The case lands. Not perfectly, but well enough. Leadership adjusts one expectation. The team gets a window of relief. You\'ve modeled that the truth is a usable tool.',
+        outcome_good: 'The case lands. Not perfectly, but well enough. Leadership adjusts one expectation. The team gets a window of relief.',
         outcome_bad: 'The case doesn\'t land the way you\'d hoped. But the team sees you tried, and your credibility with them holds.',
-        score_delta_good: 14,
-        score_delta_bad: -4,
+        score_delta_good: 14, score_delta_bad: -4,
       },
       {
         text: 'You absorb the pressure yourself and tell both sides what they want to hear.',
         archetypes_helped: ['yes_man', 'brilliant_fraudster'],
         archetypes_hurt: ['truth_teller', 'battle_tested', 'underdog'],
         outcome_good: 'You manage both sides for now. The pressure is still there. You\'ve just delayed it.',
-        outcome_bad: 'Something gives. A deadline is missed, a team member breaks down publicly, or you do. The situation that could have been managed becomes a crisis.',
-        score_delta_good: 2,
-        score_delta_bad: -16,
+        outcome_bad: 'Something gives. A deadline is missed, a team member breaks down publicly, or you do.',
+        score_delta_good: 2, score_delta_bad: -16,
+      },
+      {
+        text: 'You call a team meeting to triage openly — what stays, what moves, what gets dropped.',
+        archetypes_helped: ['truth_teller', 'sleeper', 'underdog'],
+        archetypes_hurt: ['comfortable_incumbent', 'brilliant_fraudster'],
+        outcome_good: 'The team triage session surfaces two tasks that were being worked on out of habit, not necessity. Dropping them creates real space. Leadership doesn\'t even notice.',
+        outcome_bad: 'The triage session surfaces how overloaded things actually are. The team is relieved to name it — but now everyone knows the situation is worse than it looked.',
+        score_delta_good: 10, score_delta_bad: -6,
+      },
+    ],
+  },
+  {
+    id: 's13',
+    month: 1,
+    tag: 'Month 1 — First Impression',
+    title: 'The Room Is Reading You',
+    body: 'It\'s your first all-hands as the new leader. You can feel the team calibrating — deciding how much to trust you, how honest to be, what kind of culture is about to be set. You haven\'t done anything wrong yet. You also haven\'t done anything right.',
+    question: 'What kind of first impression does your team help you make?',
+    choices: [
+      {
+        text: 'Someone on your team creates an opening — a question, a moment — that lets you be real instead of polished.',
+        archetypes_helped: ['truth_teller', 'underdog', 'sleeper'],
+        archetypes_hurt: ['yes_man', 'brilliant_fraudster'],
+        outcome_good: 'The team leaves the all-hands with a sense that something different is possible here. You didn\'t oversell yourself. That lands better than a perfect speech would have.',
+        outcome_bad: 'The meeting is fine. Professional. Forgettable. The team files out having learned nothing about who you actually are.',
+        score_delta_good: 10, score_delta_bad: -6,
+      },
+      {
+        text: 'You deliver the polished version — vision, priorities, open door. Professional and on-message.',
+        archetypes_helped: ['brilliant_fraudster', 'framework_addict'],
+        archetypes_hurt: ['truth_teller', 'battle_tested'],
+        outcome_good: 'The team respects the preparation. You\'ve set a tone of competence. The harder conversations will come later.',
+        outcome_bad: 'The team\'s most perceptive people hear the script behind the words. Trust doesn\'t start from zero — it starts slightly negative when people feel managed.',
+        score_delta_good: 4, score_delta_bad: -8,
+      },
+      {
+        text: 'You open with a question instead of a speech — what does the team need most right now?',
+        archetypes_helped: ['truth_teller', 'sleeper', 'underdog', 'raw_talent'],
+        archetypes_hurt: ['comfortable_incumbent', 'brilliant_fraudster'],
+        outcome_good: 'The question catches people off guard — in a good way. The answers you get are more useful than anything you would have said. The team senses you\'re actually listening.',
+        outcome_bad: 'The open question creates an awkward silence. The team isn\'t ready to be honest this early. The moment lands as uncertainty rather than curiosity.',
+        score_delta_good: 11, score_delta_bad: -5,
+      },
+      {
+        text: 'You spend most of the all-hands listening — one-on-one conversations in the days after instead.',
+        archetypes_helped: ['sleeper', 'truth_teller', 'battle_tested'],
+        archetypes_hurt: ['yes_man', 'framework_addict'],
+        outcome_good: 'The one-on-ones surface things the group setting never would have. You learn more in three days than you would have from a month of all-hands meetings.',
+        outcome_bad: 'The lack of a clear statement creates a vacuum. The team interprets the quietness as indirection. By day three, three different rumors are circulating.',
+        score_delta_good: 9, score_delta_bad: -7,
+      },
+    ],
+  },
+  {
+    id: 's14',
+    month: 1,
+    tag: 'Month 1 — Inherited Problem',
+    title: 'The File They Left You',
+    body: 'Three days in, someone pulls you aside. There\'s a performance issue that the previous manager never documented and never addressed. The team knows about it. HR doesn\'t. The person in question is well-liked. The impact on the work is real.',
+    question: 'How do you handle something you didn\'t create?',
+    choices: [
+      {
+        text: 'You document what you\'ve observed, start the honest conversation, and bring HR into the loop.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'sleeper'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'It\'s uncomfortable. The team notices you didn\'t sweep it under the rug. The person in question gets clarity they haven\'t had in months.',
+        outcome_bad: 'The documentation process surfaces more complexity. HR is involved now, and it\'s messier than expected. But you did the right thing.',
+        score_delta_good: 14, score_delta_bad: 4,
+      },
+      {
+        text: 'You give it a few months — you\'re new, you need more data, and you don\'t want to move too fast.',
+        archetypes_helped: ['yes_man', 'framework_addict'],
+        archetypes_hurt: ['truth_teller', 'underdog'],
+        outcome_good: 'The problem stabilizes on its own. This time.',
+        outcome_bad: 'The team watches you do nothing for three months. The person who told you about it stops bringing you hard things.',
+        score_delta_good: 2, score_delta_bad: -12,
+      },
+      {
+        text: 'You have a direct conversation with the person before involving HR — let them know what you\'re seeing.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'underdog'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'The direct conversation is surprisingly productive. The person has never had it named clearly. They respond with more ownership than you expected.',
+        outcome_bad: 'The person feels blindsided by a new leader coming in with a verdict. The relationship starts damaged and the trust that should be there isn\'t.',
+        score_delta_good: 11, score_delta_bad: -6,
+      },
+    ],
+  },
+  {
+    id: 's15',
+    month: 2,
+    tag: 'Month 2 — Early Signal',
+    title: 'One Person Is Already Checked Out',
+    body: 'Six weeks in, it\'s obvious that one team member has been coasting for a while. They\'re not hostile — just absent. Minimal contributions, late responses, the energy of someone counting down to something. No one has ever addressed it.',
+    question: 'What does your team\'s response to this tell you?',
+    choices: [
+      {
+        text: 'Someone on your team flags it to you directly — not to complain, but to help you see it clearly.',
+        archetypes_helped: ['truth_teller', 'sleeper', 'underdog'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'You have the information you need to have a real conversation early. The standard is reset.',
+        outcome_bad: 'The flag gets raised but the team culture doesn\'t support follow-through. The conversation happens but nothing changes.',
+        score_delta_good: 10, score_delta_bad: -6,
+      },
+      {
+        text: 'You wait to observe it yourself before acting. You don\'t want to move on secondhand information.',
+        archetypes_helped: ['framework_addict', 'comfortable_incumbent'],
+        archetypes_hurt: ['truth_teller', 'battle_tested'],
+        outcome_good: 'You observe it. You address it. The timing just cost you two months of signal.',
+        outcome_bad: 'While you wait, the rest of the team quietly recalibrates what level of effort is acceptable here.',
+        score_delta_good: 3, score_delta_bad: -10,
+      },
+      {
+        text: 'You have a curiosity conversation with the person — ask what\'s going on, not what\'s wrong.',
+        archetypes_helped: ['truth_teller', 'underdog', 'battle_tested'],
+        archetypes_hurt: ['brilliant_jerk', 'yes_man'],
+        outcome_good: 'The conversation surfaces that the person is dealing with something personal that\'s been affecting their work. They needed someone to notice. The coasting slows.',
+        outcome_bad: 'The curiosity frame doesn\'t land. The person is guarded and gives you nothing useful. You leave with less information than you had before.',
+        score_delta_good: 9, score_delta_bad: -4,
+      },
+    ],
+  },
+  {
+    id: 's16',
+    month: 3,
+    tag: 'Month 3 — Scope Creep',
+    title: 'Yes Said Without You',
+    body: 'Another department asked your team to take on a two-week project. Someone on your team said yes — without checking with you and without knowing the team\'s current capacity. The commitment is real. The bandwidth isn\'t.',
+    question: 'How does this get handled?',
+    choices: [
+      {
+        text: 'Someone helps you scope the actual cost honestly and you go back to renegotiate.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'underdog'],
+        archetypes_hurt: ['yes_man', 'brilliant_fraudster'],
+        outcome_good: 'The renegotiation is awkward. The other department is mildly annoyed. Your team gets a week back and doesn\'t burn out.',
+        outcome_bad: 'The honest scope conversation surfaces how overloaded the team already is.',
+        score_delta_good: 11, score_delta_bad: 2,
+      },
+      {
+        text: 'You absorb it. The commitment was made and you don\'t want to look disorganized.',
+        archetypes_helped: ['yes_man', 'comfortable_incumbent'],
+        archetypes_hurt: ['truth_teller', 'raw_talent', 'underdog'],
+        outcome_good: 'The team delivers. Barely. Nobody mentions the cost.',
+        outcome_bad: 'Two people miss deadlines on their core work. They don\'t say anything. But they noticed.',
+        score_delta_good: 2, score_delta_bad: -12,
+      },
+      {
+        text: 'You use it as a teaching moment — address with the team member who said yes, establish a decision protocol.',
+        archetypes_helped: ['truth_teller', 'framework_addict', 'sleeper'],
+        archetypes_hurt: ['comfortable_incumbent', 'yes_man'],
+        outcome_good: 'The conversation is handled well. The team member understands why the check-in matters. A lightweight protocol gets established that prevents future incidents.',
+        outcome_bad: 'The conversation comes across as a reprimand. The team member who said yes felt they were being helpful. The protocol creates resentment rather than clarity.',
+        score_delta_good: 8, score_delta_bad: -7,
+      },
+    ],
+  },
+  {
+    id: 's17',
+    month: 4,
+    tag: 'Month 4 — First Disagreement',
+    title: 'Someone Pushes Back on You',
+    body: 'In a team meeting, one of your hires disagrees with your approach — respectfully, clearly, and in front of everyone. They\'re not wrong. But you weren\'t expecting it, and the room is watching how you respond.',
+    question: 'What does the team learn from this moment?',
+    choices: [
+      {
+        text: 'You engage with the pushback seriously and update your thinking where they\'re right.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'underdog', 'sleeper'],
+        archetypes_hurt: ['yes_man', 'brilliant_fraudster'],
+        outcome_good: 'The team sees that disagreement is safe and productive here. The person who pushed back becomes more engaged.',
+        outcome_bad: 'You engage genuinely but the decision still goes your way. The team isn\'t sure if the pushback actually moved anything.',
+        score_delta_good: 14, score_delta_bad: -4,
+      },
+      {
+        text: 'You acknowledge the point and move on — you\'ll revisit offline. This isn\'t the time.',
+        archetypes_helped: ['framework_addict', 'comfortable_incumbent'],
+        archetypes_hurt: ['truth_teller', 'sleeper'],
+        outcome_good: 'The offline conversation happens and it\'s productive. The public deflection cost some trust but the outcome was fine.',
+        outcome_bad: 'The offline conversation never happens. The person who pushed back goes quiet in future meetings.',
+        score_delta_good: 4, score_delta_bad: -10,
+      },
+      {
+        text: 'You thank them publicly for the challenge and invite others to weigh in before you decide.',
+        archetypes_helped: ['truth_teller', 'raw_talent', 'underdog', 'sleeper'],
+        archetypes_hurt: ['comfortable_incumbent', 'brilliant_fraudster'],
+        outcome_good: 'The invitation opens a real discussion. Two more perspectives surface. Your decision is better for it and the team sees you meant the open door policy.',
+        outcome_bad: 'The open discussion goes sideways. A second dissenting view emerges that you also hadn\'t anticipated. The meeting ends without a decision and momentum stalls.',
+        score_delta_good: 12, score_delta_bad: -5,
+      },
+    ],
+  },
+  {
+    id: 's18',
+    month: 4,
+    tag: 'Month 4 — Quiet Conflict',
+    title: 'Two People Have Stopped Talking',
+    body: 'There\'s a cold war developing between two team members. Nothing explicit — just a pattern of short responses, avoided eye contact, and work stopping at the boundary between their roles. The quality of collaboration is quietly declining.',
+    question: 'Does your team have what it takes to surface this?',
+    choices: [
+      {
+        text: 'Someone with good relational instincts notices, names it privately, and helps defuse it before it hardens.',
+        archetypes_helped: ['sleeper', 'truth_teller', 'underdog'],
+        archetypes_hurt: ['brilliant_jerk', 'yes_man'],
+        outcome_good: 'The tension gets named before it becomes permanent. Both people feel heard. The collaboration improves enough to stop the slide.',
+        outcome_bad: 'The intervention happens but goes sideways. One of the two people feels targeted and becomes more withdrawn.',
+        score_delta_good: 12, score_delta_bad: -6,
+      },
+      {
+        text: 'You wait for it to come to you — you don\'t want to insert yourself into interpersonal dynamics.',
+        archetypes_helped: ['comfortable_incumbent', 'framework_addict'],
+        archetypes_hurt: ['sleeper', 'truth_teller', 'underdog'],
+        outcome_good: 'It resolves on its own after a month. Some scar tissue remains.',
+        outcome_bad: 'It hardens. The rest of the team starts routing around the dysfunction. You\'ve now inherited two silos where you used to have a team.',
+        score_delta_good: 2, score_delta_bad: -14,
+      },
+      {
+        text: 'You bring them into a structured conversation with you present — name what you\'re seeing and give them space to respond.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'sleeper'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'Having you name it changes the dynamic. Both parties are more measured with you present. An agreement gets made. It\'s not warm, but it\'s workable.',
+        outcome_bad: 'The structured conversation makes both parties defensive. They perform resolution for you but nothing actually shifts. The dynamic continues.',
+        score_delta_good: 9, score_delta_bad: -8,
+      },
+    ],
+  },
+  {
+    id: 's19',
+    month: 5,
+    tag: 'Month 5 — Bad Hire Signal',
+    title: 'You\'re Starting to Wonder',
+    body: 'One of your hires looked perfect on paper and interviewed well. Five months in, the gap between what they presented and what they deliver is becoming impossible to ignore. The team has noticed. You\'ve made excuses to yourself twice already.',
+    question: 'How long does the denial last?',
+    choices: [
+      {
+        text: 'Someone on your team gives you the honest read — not to complain, but because they trust you to act on it.',
+        archetypes_helped: ['truth_teller', 'underdog', 'battle_tested'],
+        archetypes_hurt: ['yes_man', 'brilliant_fraudster'],
+        outcome_good: 'The honest feedback accelerates your decision-making. You have a direct conversation with the hire. The path forward — improvement or exit — becomes clear faster.',
+        outcome_bad: 'The feedback confirms what you knew. The conversation is hard. But the team trusts you more for having it.',
+        score_delta_good: 14, score_delta_bad: 4,
+      },
+      {
+        text: 'You give it another quarter. Onboarding takes time and you don\'t want to be wrong.',
+        archetypes_helped: ['comfortable_incumbent', 'framework_addict'],
+        archetypes_hurt: ['truth_teller', 'sleeper'],
+        outcome_good: 'The hire finds their footing. It takes eight months instead of three.',
+        outcome_bad: 'Three months later nothing has changed. You\'ve spent nearly a year hoping. The team has spent that year carrying the gap.',
+        score_delta_good: 2, score_delta_bad: -14,
+      },
+      {
+        text: 'You set a 30-day improvement plan — specific expectations, weekly check-ins, clear stakes.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'framework_addict'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'The structured plan forces clarity on both sides. The hire either rises to it or reveals they can\'t. Either way you\'re no longer in limbo.',
+        outcome_bad: 'The 30-day plan is too compressed and too formal too fast. The hire feels ambushed. The relationship deteriorates faster than the performance does.',
+        score_delta_good: 10, score_delta_bad: -6,
+      },
+    ],
+  },
+  {
+    id: 's20',
+    month: 6,
+    tag: 'Month 6 — New Directive',
+    title: 'The Strategy Just Changed',
+    body: 'Leadership has announced a pivot. A priority your team has been building toward for six months is now deprioritized. The work isn\'t wasted — but it feels that way. Two people on your team spent nights and weekends on this.',
+    question: 'How does your team absorb a direction change that stings?',
+    choices: [
+      {
+        text: 'Someone helps the team hold both truths — the work was real and the change is real — without pretending either away.',
+        archetypes_helped: ['battle_tested', 'truth_teller', 'underdog'],
+        archetypes_hurt: ['yes_man', 'brilliant_fraudster'],
+        outcome_good: 'The team grieves the pivot briefly and moves. The people who worked hardest feel seen rather than discarded.',
+        outcome_bad: 'The acknowledgment helps somewhat, but the team\'s trust in the broader organization takes a hit.',
+        score_delta_good: 13, score_delta_bad: -6,
+      },
+      {
+        text: 'You present it as an opportunity — new direction, fresh energy, let\'s build something better.',
+        archetypes_helped: ['yes_man', 'framework_addict'],
+        archetypes_hurt: ['battle_tested', 'truth_teller'],
+        outcome_good: 'Some people are energized. The ones who sacrificed the most are not.',
+        outcome_bad: 'The team hears the spin and becomes quietly cynical. Future all-hands have a different energy.',
+        score_delta_good: 3, score_delta_bad: -13,
+      },
+      {
+        text: 'You escalate back to leadership to get clarity on what from the old work is still usable.',
+        archetypes_helped: ['battle_tested', 'truth_teller', 'underdog'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'Leadership confirms two components of the old work that carry forward. You bring that back to the team. The pivot hurts less when it turns out not to be a total reset.',
+        outcome_bad: 'Leadership is impatient with the question. The answer is "start fresh." You\'ve used some goodwill to confirm what you probably already knew.',
+        score_delta_good: 10, score_delta_bad: -4,
+      },
+    ],
+  },
+  {
+    id: 's21',
+    month: 7,
+    tag: 'Month 7 — Accountability Gap',
+    title: 'The Deadline Was Missed',
+    body: 'A key deliverable came in four days late without prior warning. The client noticed. Your leadership noticed. The person responsible has a history of close calls. You\'ve had the general conversation before. This time, it\'s specific.',
+    question: 'What does accountability look like on your team?',
+    choices: [
+      {
+        text: 'You have the direct, documented conversation — specific behaviors, specific expectations, specific consequences.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'underdog'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'The conversation is hard and productive. The person understands what\'s at stake now. The team sees that accountability isn\'t just talk here.',
+        outcome_bad: 'The conversation happens but the follow-through is inconsistent. The team watches to see if the expectation actually holds.',
+        score_delta_good: 14, score_delta_bad: -8,
+      },
+      {
+        text: 'You address it in a team-wide message about deadlines — the issue without naming the person.',
+        archetypes_helped: ['yes_man', 'framework_addict'],
+        archetypes_hurt: ['truth_teller', 'battle_tested'],
+        outcome_good: 'The message lands as a gentle reminder. The person knows it\'s about them.',
+        outcome_bad: 'The message insults the people who didn\'t miss the deadline. The behavior repeats.',
+        score_delta_good: 1, score_delta_bad: -12,
+      },
+      {
+        text: 'You ask the person to bring a post-mortem — what happened, what they\'ll do differently.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'sleeper'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'The post-mortem surfaces a legitimate process gap that contributed to the miss. Fixing it helps the whole team. The accountability feels constructive rather than punitive.',
+        outcome_bad: 'The post-mortem is thin. The person treats it as a formality. You\'ve added process without adding accountability.',
+        score_delta_good: 10, score_delta_bad: -7,
+      },
+    ],
+  },
+  {
+    id: 's22',
+    month: 7,
+    tag: 'Month 7 — External Pressure',
+    title: 'The Client Is Asking for You',
+    body: 'A key client has requested that a specific team member be removed from their account. The feedback is vague — "not a fit" — but firm. The person in question has done nothing wrong by your standards and is one of your more capable hires.',
+    question: 'How does your team help you navigate this?',
+    choices: [
+      {
+        text: 'Someone helps you build the internal case — data, track record, context — before you respond to the client.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'sleeper'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'You go back to the client with a real response. The client respects the pushback and provides more specific feedback. The situation becomes workable.',
+        outcome_bad: 'The internal case is solid but the client doesn\'t move. You\'ve protected your person and lost some client goodwill.',
+        score_delta_good: 12, score_delta_bad: -4,
+      },
+      {
+        text: 'You honor the client request. Client relationships are the business.',
+        archetypes_helped: ['comfortable_incumbent', 'yes_man'],
+        archetypes_hurt: ['truth_teller', 'underdog', 'battle_tested'],
+        outcome_good: 'The transition goes smoothly. The person lands well on a new account. The cost is their confidence in your willingness to protect them.',
+        outcome_bad: 'Word gets around that you complied without a fight. The team draws a conclusion about whose interests are protected here.',
+        score_delta_good: 2, score_delta_bad: -14,
+      },
+      {
+        text: 'You ask the client for a specific example before making any decision.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'underdog'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'The request for specifics changes the conversation. The client either surfaces a real concern you can address, or backs down from a vague complaint. Either way, you have more to work with.',
+        outcome_bad: 'The client takes the request for specifics as resistance. The relationship cools. You\'ve won the argument and damaged the account.',
+        score_delta_good: 11, score_delta_bad: -8,
+      },
+    ],
+  },
+  {
+    id: 's23',
+    month: 8,
+    tag: 'Month 8 — Succession Signal',
+    title: 'Who\'s Ready to Lead?',
+    body: 'You\'ve been asked to put forward a name for an acting team lead role while you\'re out for three weeks. It\'s not a permanent promotion — but it\'s the first real signal about who\'s next. The obvious choice isn\'t always the right one.',
+    question: 'What does your answer say about how you built this team?',
+    choices: [
+      {
+        text: 'You name someone who\'s been quietly ready — not the loudest, not the most senior, but the one the team actually follows.',
+        archetypes_helped: ['sleeper', 'underdog', 'battle_tested'],
+        archetypes_hurt: ['brilliant_fraudster', 'yes_man'],
+        outcome_good: 'The team accepts the choice immediately — they already knew who it was going to be. Your pick confirms you\'ve been paying attention.',
+        outcome_bad: 'The pick surprises people and creates a brief moment of uncertainty. But by end of week one, the team settles in.',
+        score_delta_good: 13, score_delta_bad: -4,
+      },
+      {
+        text: 'You name the most senior person — it\'s the path of least resistance and easiest to justify.',
+        archetypes_helped: ['comfortable_incumbent', 'framework_addict'],
+        archetypes_hurt: ['sleeper', 'raw_talent', 'underdog'],
+        outcome_good: 'The three weeks go fine. No one grows. The right person is still waiting.',
+        outcome_bad: 'The senior person is fine at the work and poor with the people. You spend a week in repair mode when you return.',
+        score_delta_good: 2, score_delta_bad: -12,
+      },
+      {
+        text: 'You ask two people to share the responsibility. No single acting lead — a paired structure.',
+        archetypes_helped: ['truth_teller', 'underdog', 'sleeper'],
+        archetypes_hurt: ['framework_addict', 'comfortable_incumbent'],
+        outcome_good: 'The paired structure works surprisingly well. Both people grow. The team sees a new model of leadership that isn\'t winner-takes-all.',
+        outcome_bad: 'The two people step on each other\'s decisions. The team doesn\'t know who to escalate to. Small problems become larger for lack of a clear decision-maker.',
+        score_delta_good: 9, score_delta_bad: -9,
+      },
+    ],
+  },
+  {
+    id: 's24',
+    month: 8,
+    tag: 'Month 8 — Interview Panel',
+    title: 'You\'re Hiring Again',
+    body: 'A role opened up and you\'re running a panel interview. Halfway through, it\'s clear this candidate interviews brilliantly — polished, articulate, exactly what the role description asked for. Your gut says something is off. You can\'t name it.',
+    question: 'Does your team help you see what your gut is trying to say?',
+    choices: [
+      {
+        text: 'Someone on the panel names the specific gap they noticed — a moment where the polish slipped.',
+        archetypes_helped: ['truth_teller', 'sleeper', 'battle_tested'],
+        archetypes_hurt: ['yes_man', 'brilliant_fraudster'],
+        outcome_good: 'The debrief surfaces a pattern your gut had caught but your conscious mind hadn\'t articulated. You make a better decision with more information.',
+        outcome_bad: 'The observation is made but dismissed — the candidate was too impressive. You hire them. Six months later you remember this moment.',
+        score_delta_good: 13, score_delta_bad: -10,
+      },
+      {
+        text: 'The panel debrief is enthusiastic. You go with the group read. Your gut was probably wrong.',
+        archetypes_helped: ['comfortable_incumbent', 'yes_man'],
+        archetypes_hurt: ['truth_teller', 'battle_tested', 'sleeper'],
+        outcome_good: 'The hire works out. Your gut was wrong this time.',
+        outcome_bad: 'The hire doesn\'t work out — exactly the way your gut predicted. You had the information. The team\'s enthusiasm drowned it out.',
+        score_delta_good: 3, score_delta_bad: -13,
+      },
+      {
+        text: 'You run a second interview with a different format — less presentation, more problem-solving.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'underdog'],
+        archetypes_hurt: ['brilliant_fraudster', 'yes_man'],
+        outcome_good: 'The second format reveals what the first one hid. The candidate struggles when there\'s no prepared answer. You pass. The team respects the rigor.',
+        outcome_bad: 'The second interview also goes well. Your gut was wrong. You\'ve delayed a good hire and the candidate accepts another offer in the meantime.',
+        score_delta_good: 11, score_delta_bad: -5,
+      },
+    ],
+  },
+  {
+    id: 's25',
+    month: 9,
+    tag: 'Month 9 — Looking Back',
+    title: 'Your First Year Review Is Coming',
+    body: 'Your skip-level has asked for a self-assessment before your year-one review. They want to know what you\'d do differently. The honest answer involves one hire you\'re not sure about and one decision you made under pressure that you haven\'t fully processed.',
+    question: 'What kind of leader walks into that room?',
+    choices: [
+      {
+        text: 'Someone on your team helps you see your own patterns clearly enough to own them out loud.',
+        archetypes_helped: ['truth_teller', 'underdog', 'battle_tested'],
+        archetypes_hurt: ['yes_man', 'brilliant_fraudster'],
+        outcome_good: 'You walk into the review with something real to say. The skip-level isn\'t expecting perfect — they\'re evaluating your self-awareness. You exceed the bar.',
+        outcome_bad: 'The honest reflection is uncomfortable. You go into the room with more vulnerability than you planned. It lands better than the polished version would have.',
+        score_delta_good: 14, score_delta_bad: 4,
+      },
+      {
+        text: 'You frame the year in terms of wins and forward-looking goals. Dwelling on gaps isn\'t productive.',
+        archetypes_helped: ['brilliant_fraudster', 'comfortable_incumbent'],
+        archetypes_hurt: ['truth_teller', 'battle_tested'],
+        outcome_good: 'The review goes well. Your skip-level is satisfied. The things you didn\'t address are still waiting.',
+        outcome_bad: 'Your skip-level asks directly about the hire and the decision. The polished frame collapses under the question.',
+        score_delta_good: 3, score_delta_bad: -12,
+      },
+      {
+        text: 'You prepare by writing the hard parts down first — what you\'d do differently, in your own words.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'sleeper'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'The writing process forces precision. You arrive with specific, owned reflections rather than vague regrets. The skip-level is visibly impressed by the depth.',
+        outcome_bad: 'The writing surfaces more than you expected. The review goes well but you leave with a clearer picture of a pattern you\'ve been avoiding. That\'s uncomfortable — and important.',
+        score_delta_good: 12, score_delta_bad: 5,
+      },
+    ],
+  },
+  {
+    id: 's26',
+    month: 9,
+    tag: 'Month 9 — Culture Audit',
+    title: 'The Engagement Survey Comes Back',
+    body: 'The annual engagement survey results land. Overall scores are average. But two specific questions — "My manager takes action on feedback" and "I feel safe raising concerns" — came back below the company baseline. You thought the team was doing well.',
+    question: 'What does your team tell you that the survey didn\'t?',
+    choices: [
+      {
+        text: 'Someone you trust gives you the honest context — what\'s actually behind those numbers.',
+        archetypes_helped: ['truth_teller', 'sleeper', 'underdog'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'The context reframes the scores from a verdict into a diagnosis. You understand what specifically created the gap — and it\'s fixable.',
+        outcome_bad: 'The honest context is hard to hear. It implicates a pattern you didn\'t want to see. You sit with it. Then you do something about it.',
+        score_delta_good: 14, score_delta_bad: 4,
+      },
+      {
+        text: 'You bring the team together to discuss the results and ask what you can improve.',
+        archetypes_helped: ['framework_addict', 'yes_man'],
+        archetypes_hurt: ['truth_teller', 'battle_tested'],
+        outcome_good: 'The group conversation produces some useful input. The team appreciates being asked — though they said more in the anonymous survey than in the room.',
+        outcome_bad: 'The group meeting confirms nothing. The people with the real feedback stay quiet. The scores don\'t move next year.',
+        score_delta_good: 4, score_delta_bad: -12,
+      },
+      {
+        text: 'You go back to the two low-scoring questions and commit to one visible action within two weeks.',
+        archetypes_helped: ['truth_teller', 'battle_tested', 'underdog'],
+        archetypes_hurt: ['yes_man', 'comfortable_incumbent'],
+        outcome_good: 'The speed of the response signals this isn\'t performative. The team notices. One concrete change shifts the dynamic more than a dozen conversations would have.',
+        outcome_bad: 'The action you choose addresses the symptom, not the cause. The team sees the effort and appreciates it — but the underlying pattern doesn\'t shift.',
+        score_delta_good: 11, score_delta_bad: -5,
       },
     ],
   },
 ];
 
-// Draw 5 random scenarios for this playthrough
+// Draw 5 random scenarios for this playthrough, then sort by month for a coherent arc
 let SCENARIOS = [];
 
 
@@ -1193,6 +1805,8 @@ let state = {
   selectedCandidates: [],
   scenarioIndex: 0,
   score: 50,
+  scoreHistory: [50], // track score after each scenario
+  rawPointsEarned: 0, // cumulative points from scenarios only
   scenarioResults: [],
   candidatePool: [],
 };
@@ -1218,19 +1832,28 @@ function teamHasArchetype(archetypes) {
 // ===== SCREENS =====
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-' + id).classList.add('active');
+  const screen = document.getElementById('screen-' + id);
+  screen.classList.add('active');
   window.scrollTo(0, 0);
+  // Move focus to first heading or button in new screen for keyboard/screen reader users
+  const focusTarget = screen.querySelector('h1, h2, button, [tabindex="0"]');
+  if (focusTarget) {
+    focusTarget.setAttribute('tabindex', focusTarget.getAttribute('tabindex') || '-1');
+    focusTarget.focus({ preventScroll: true });
+  }
 }
 
 // ===== START =====
 function startGame() {
-  // Draw 5 random scenarios from pool of 12
-  SCENARIOS = shuffle(SCENARIO_POOL).slice(0, 5);
+  // Draw 5 random scenarios from pool of 26, then sort by month for coherent arc
+  SCENARIOS = shuffle(SCENARIO_POOL).slice(0, 5).sort((a, b) => a.month - b.month);
   state = {
     budget: 500000,
     selectedCandidates: [],
     scenarioIndex: 0,
     score: 50,
+    scoreHistory: [50],
+    rawPointsEarned: 0,
     scenarioResults: [],
     candidatePool: shuffle(CANDIDATE_POOL),
   };
@@ -1266,13 +1889,24 @@ function updateBudgetDisplay() {
 function renderCandidates() {
   const grid = document.getElementById('candidates-grid');
   grid.innerHTML = '';
+  const spent = state.selectedCandidates.reduce((s, c) => s + c.salary, 0);
   state.candidatePool.forEach(c => {
     const isSelected = state.selectedCandidates.find(s => s.id === c.id);
+    const isOverBudget = !isSelected && (spent + c.salary > state.budget);
+    const isTeamFull = !isSelected && state.selectedCandidates.length >= 5;
+    const isDisabled = isOverBudget || isTeamFull;
     const card = document.createElement('div');
-    card.className = 'candidate-card' + (isSelected ? ' selected' : '');
-    card.onclick = () => toggleCandidate(c);
+    card.className = 'candidate-card' + (isSelected ? ' selected' : '') + (isDisabled ? ' over-budget' : '');
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', isDisabled ? '-1' : '0');
+    card.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+    card.setAttribute('aria-label', `${c.name}, ${c.title}, salary ${formatMoney(c.salary)}${isSelected ? ', selected' : ''}${isDisabled ? ', unavailable' : ''}`);
+    if (!isDisabled) {
+      card.onclick = () => toggleCandidate(c);
+      card.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCandidate(c); } };
+    }
     card.innerHTML = `
-      <div class="select-indicator">✓</div>
+      <div class="select-indicator" aria-hidden="true">✓</div>
       <div class="cand-role">${c.role}</div>
       <div class="cand-name">${c.name}</div>
       <div class="cand-title">${c.title}</div>
@@ -1281,6 +1915,7 @@ function renderCandidates() {
       </div>
       <div class="cand-salary">Salary: <span>${formatMoney(c.salary)}</span></div>
       <div class="cand-bio">${c.bio}</div>
+      ${isOverBudget ? '<div class="over-budget-label">Over budget</div>' : ''}
     `;
     grid.appendChild(card);
   });
@@ -1325,16 +1960,24 @@ function proceedToScenarios() {
 function renderScenarioProgress() {
   const container = document.getElementById('scenario-progress');
   container.innerHTML = '';
+  container.setAttribute('role', 'progressbar');
+  container.setAttribute('aria-valuemin', '0');
+  container.setAttribute('aria-valuemax', String(SCENARIOS.length));
+  container.setAttribute('aria-valuenow', String(state.scenarioIndex));
+  container.setAttribute('aria-label', `Scenario ${state.scenarioIndex + 1} of ${SCENARIOS.length}`);
   SCENARIOS.forEach((_, i) => {
     const pip = document.createElement('div');
     pip.className = 'progress-pip' + (i < state.scenarioIndex ? ' done' : i === state.scenarioIndex ? ' active' : '');
     pip.id = 'pip-' + i;
+    pip.setAttribute('aria-hidden', 'true');
     container.appendChild(pip);
   });
 }
 
 function loadScenario() {
   const s = SCENARIOS[state.scenarioIndex];
+  // Shuffle choices every time so position 1 is never a reliable tell
+  const shuffledChoices = shuffle(s.choices);
   const content = document.getElementById('scenario-content');
   const outcome = document.getElementById('scenario-outcome');
   const nextBtn = document.getElementById('scenario-next');
@@ -1349,8 +1992,8 @@ function loadScenario() {
       <div class="scenario-body">${s.body}</div>
       <div class="scenario-question">${s.question}</div>
       <div class="scenario-choices">
-        ${s.choices.map((ch, i) => `
-          <button class="choice-btn" onclick="selectChoice(${i})">${ch.text}</button>
+        ${shuffledChoices.map((ch, i) => `
+          <button class="choice-btn" onclick="selectChoice(${s.choices.indexOf(ch)})">${ch.text}</button>
         `).join('')}
       </div>
     </div>
@@ -1380,14 +2023,17 @@ function selectChoice(choiceIdx) {
     deltaClass = 'neg';
     outcomeLabel = 'What Happened';
   } else {
-    // Neutral — partial outcome
-    outcomeText = choice.outcome_good;
-    scoreDelta = Math.floor(choice.score_delta_good / 2);
+    // Neutral — team has neither helped nor hurt archetypes
+    // Show bad outcome text since no one stepped up, but softer delta
+    outcomeText = choice.outcome_bad;
+    scoreDelta = Math.floor(choice.score_delta_bad / 2);
     deltaClass = 'neu';
     outcomeLabel = 'What Happened';
   }
 
   state.score = Math.max(0, Math.min(100, state.score + scoreDelta));
+  state.rawPointsEarned += scoreDelta;
+  state.scoreHistory.push(state.score);
   state.scenarioResults.push({ scenario: s, choiceIdx, outcomeText, scoreDelta, teamGood });
 
   // Style buttons
@@ -1429,6 +2075,7 @@ function nextScenario() {
 function getVerdict(score) {
   if (score >= 85) return {
     title: 'Rare Judgment',
+    range: '85–100',
     sub: 'You hired for the team, not the optics. This is genuinely uncommon.',
     analysis: 'Your selections reflect someone who knows what they\'re actually looking for — and isn\'t easily distracted by polish, confidence, or credentials that don\'t translate into team performance. Leaders who score here tend to hire people who make the team stronger rather than people who make the leader feel safe. The scenarios bore that out. When pressure came, your team had the composition to respond well because you built it with the right people, not just the obvious ones.',
     blind_spot: 'Watch for overconfidence in your own judgment. High-judgment leaders sometimes stop pressure-testing their instincts because past success feels like proof. It isn\'t — it\'s evidence. Keep surrounding yourself with people who will tell you when you\'re wrong.',
@@ -1436,6 +2083,7 @@ function getVerdict(score) {
   };
   if (score >= 70) return {
     title: 'Solid Foundation',
+    range: '70–84',
     sub: 'More right than wrong. Some instincts need calibration.',
     analysis: 'You made more good calls than bad ones — both in who you hired and how you responded when things got hard. Your team had enough of the right composition to navigate most situations, but there were moments where the gaps showed. A few of your hires were selected for reasons that felt right in the room but created friction later. The good news: leaders at this level are usually self-aware enough to course-correct. The ones who don\'t are the ones who mistake a solid record for a perfect one.',
     blind_spot: 'Look at which scenarios cost you points. There\'s likely a pattern — either in the types of people you avoided hiring, or in the types of decisions you defaulted to under pressure. That pattern is more instructive than the overall score.',
@@ -1443,6 +2091,7 @@ function getVerdict(score) {
   };
   if (score >= 50) return {
     title: 'Mixed Record',
+    range: '50–69',
     sub: 'You got some of it. The gaps will compound over time.',
     analysis: 'Your results reflect something that\'s actually very common: a team built partly on instinct, partly on comfort, and partly on what looked good at the time. Some of your hires were genuinely strong. Others were selected for reasons that had more to do with your preferences than the team\'s needs. In the scenarios, that tension played out. When the situation needed something your team couldn\'t provide, the cost was real — and repeatable. Mixed teams don\'t always fail. But they force the leader to compensate constantly for gaps that better composition would have eliminated.',
     blind_spot: 'The most important question isn\'t what you got wrong — it\'s why. Were you drawn to candidates who felt familiar? Who reflected your own style? Who didn\'t challenge you in the interview? The answer usually lives in the hiring decision you felt most certain about.',
@@ -1450,15 +2099,17 @@ function getVerdict(score) {
   };
   if (score >= 30) return {
     title: 'The Warning Signs Were There',
+    range: '30–49',
     sub: 'Your selections revealed more about what you wanted to avoid than what you wanted to build.',
     analysis: 'Your team composition created recurring problems — not because you hired bad people, but because the pattern of who you hired reflected something other than team strength. Leaders who score here often hire for comfort, for optics, or for loyalty rather than capability and complementarity. The scenarios were hard because the team wasn\'t built to handle them. When pressure came, there wasn\'t enough candor, resilience, or judgment in the room to respond well. This is one of the most common leadership failure modes — and one of the least discussed, because it\'s easy to blame the situations rather than the selections.',
-    blind_spot: 'Tasha Eurich\'s research found that leaders who lack self-awareness build teams that protect their blind spots rather than challenge them. Look at your hires honestly: how many of them would genuinely tell you when you\'re wrong? If the answer is zero or one, that\'s the pattern.',
+    blind_spot: 'Tasha Eurich\'s research found that 95% of leaders believe they\'re self-aware — but only 10–15% actually are. Leaders who score here often build teams that protect their blind spots rather than challenge them. Look at your hires honestly: how many of them would genuinely tell you when you\'re wrong? If the answer is zero or one, that\'s the pattern. The first question isn\'t about the team. It\'s about whether you\'re in the 85%.',
     score_color: '#e67e22',
   };
   return {
     title: 'A Culture By Default',
+    range: '0–29',
     sub: 'You built a team that mirrors your blind spots. These teams exist everywhere.',
-    analysis: 'Your selections and your decisions under pressure tell a consistent story — one where comfort, optics, and avoiding friction drove more choices than you may have realized. Teams built this way don\'t always look broken from the outside. They often look fine right up until a real crisis hits. Then the culture that was set by default — around the lowest standard tolerated, around who got protected, around what kind of honesty was actually welcome — determines everything. Jim Collins\' research found that the worst-performing organizations didn\'t usually fail because of strategy. They failed because the wrong people were on the bus, making decisions the right people would never have made.',
+    analysis: 'Your selections and your decisions under pressure tell a consistent story — one where comfort, optics, and avoiding friction drove more choices than you may have realized. Teams built this way don\'t always look broken from the outside. They often look fine right up until a real crisis hits. Then the culture that was set by default — around the lowest standard tolerated, around who got protected, around what kind of honesty was actually welcome — determines everything. Jim Collins\' research found that great companies prioritized "who" before "what" — the right people on the bus before the strategy. Teams built around the wrong people don\'t fail because of bad decisions. They make bad decisions because of who was in the room.',
     blind_spot: 'The hardest insight here isn\'t about the team — it\'s about what your choices reveal about your self-awareness as a leader. Start there. Ask who in your real life actually pushes back on you. If no one comes to mind, that\'s the first problem to solve.',
     score_color: '#c0392b',
   };
@@ -1564,14 +2215,96 @@ function renderResults() {
     insight: c.insight,
   }));
 
+  // Build score journey bar segments
+  const journeySegments = state.scoreHistory.map((s, i) => {
+    if (i === 0) return null;
+    const prev = state.scoreHistory[i - 1];
+    const delta = s - prev;
+    const r = state.scenarioResults[i - 1];
+    return { score: s, delta, title: r ? r.scenario.title : '', good: delta > 0 };
+  }).filter(Boolean);
+
+  // Score journey track HTML
+  const journeyHTML = journeySegments.map((seg, i) => {
+    const deltaStr = (seg.delta >= 0 ? '+' : '') + seg.delta;
+    const col = seg.delta > 0 ? 'var(--green)' : seg.delta < 0 ? '#e05c4a' : 'var(--text-dim)';
+    return `
+      <div style="display:flex; align-items:center; gap:12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+        <div style="font-family:'DM Mono',monospace; font-size:12px; color:var(--gold); width:24px; flex-shrink:0; font-weight:500;">S${i+1}</div>
+        <div style="flex:1; font-size:13px; color:var(--text); line-height:1.4; font-weight:500;">${seg.title}</div>
+        <div style="font-family:'DM Mono',monospace; font-size:13px; color:${col}; width:52px; text-align:right; flex-shrink:0; font-weight:500;">${deltaStr} pts</div>
+        <div style="width:64px; flex-shrink:0;">
+          <div style="height:6px; background:var(--surface2); border-radius:3px; overflow:hidden;">
+            <div style="height:100%; width:${seg.score}%; background:${col}; border-radius:3px; transition: width 0.6s ease;"></div>
+          </div>
+          <div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--text-dim); text-align:right; margin-top:3px;">${seg.score}</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  // Score band guide
+  const bands = [
+    { range: '85–100', label: 'Rare Judgment', color: '#27ae60' },
+    { range: '70–84',  label: 'Solid Foundation', color: '#2980b9' },
+    { range: '50–69',  label: 'Mixed Record', color: '#d4a843' },
+    { range: '30–49',  label: 'Warning Signs', color: '#e67e22' },
+    { range: '0–29',   label: 'Culture By Default', color: '#c0392b' },
+  ];
+
+  const bandHTML = bands.map(b => {
+    const isYou = verdict.score_color === b.color;
+    return `
+    <div style="display:flex; align-items:center; gap:12px; padding:7px 0; ${isYou ? 'background:rgba(255,255,255,0.03); margin:0 -8px; padding:7px 8px; border-radius:3px;' : ''}">
+      <div style="width:10px; height:10px; border-radius:50%; background:${b.color}; flex-shrink:0;"></div>
+      <div style="font-family:'DM Mono',monospace; font-size:12px; color:var(--text-dim); width:58px; flex-shrink:0;">${b.range}</div>
+      <div style="font-size:13px; color:${isYou ? 'var(--text)' : 'var(--text-dim)'}; font-weight:${isYou ? '600' : '400'};">${b.label}${isYou ? '<span style="font-size:11px; color:var(--gold); margin-left:8px; font-family:\'DM Mono\',monospace;">← your score</span>' : ''}</div>
+    </div>`;
+  }).join('');
+
+  const netPoints = state.rawPointsEarned;
+  const netStr = (netPoints >= 0 ? '+' : '') + netPoints;
+  const wasCapped = (50 + netPoints) > 100;
+  const rawTotal = 50 + netPoints;
+
   container.innerHTML = `
     <div class="results-score-display">
       <div class="score-ring" style="border-color: ${verdict.score_color}">
         <div class="score-number" style="color: ${verdict.score_color}">${state.score}</div>
-        <div class="score-max">/ 100</div>
+        <div class="score-max">${wasCapped ? 'capped at 100' : '/ 100'}</div>
       </div>
       <div class="verdict-title">${verdict.title}</div>
       <div class="verdict-sub">${verdict.sub}</div>
+
+      <div style="display:flex; gap:24px; justify-content:center; margin: 8px 0 28px; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--text-dim); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;">Started At</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--text-dim);">50</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--text-dim); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;">Points Earned</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:32px; color:${netPoints >= 0 ? 'var(--green)' : '#e05c4a'};">${netStr}</div>
+          ${wasCapped ? `<div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--gold); margin-top:4px;">raw: ${rawTotal}</div>` : ''}
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--text-dim); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;">Final Score</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:32px; color:${verdict.score_color};">${state.score}</div>
+          ${wasCapped ? `<div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--text-dim); margin-top:4px;">ceiling hit</div>` : ''}
+        </div>
+      </div>
+      ${wasCapped ? `<div style="font-family:'DM Mono',monospace; font-size:12px; color:var(--gold); text-align:center; margin-bottom:8px; letter-spacing:1px;">Your raw score of ${rawTotal} exceeded the ceiling — automatically placed in the top tier.</div>` : ''}
+    </div>
+
+    <div class="insights-box" style="border-color: ${verdict.score_color}; margin-bottom: 24px;">
+      <h3>How Your Score Is Calculated</h3>
+      <p style="margin-bottom:14px;">Every player starts at <strong style="color:var(--text);">50</strong> — a neutral baseline. Each scenario awards points based on whether your team's composition could handle what was thrown at them. The right team earns full points. The wrong team loses points. The score is capped at 100 — but it's possible to earn more than 50 points across five scenarios. If your raw total exceeds 100, you're automatically placed in the top tier regardless of the exact number.</p>
+      <div style="margin-bottom: 8px;">${bandHTML}</div>
+      <p style="font-size:13px; color:var(--text-dim); margin-top:14px;">${wasCapped ? `Your raw score of <strong style="color:${verdict.score_color};">${rawTotal}</strong> exceeded the 100-point ceiling — displayed as <strong style="color:${verdict.score_color};">100</strong>, placing you in the <strong style="color:${verdict.score_color};">${verdict.range}</strong> band: <strong style="color:var(--text);">${verdict.title}</strong>.` : `Your score of <strong style="color:${verdict.score_color};">${state.score}</strong> places you in the <strong style="color:${verdict.score_color};">${verdict.range}</strong> band: <strong style="color:var(--text);">${verdict.title}</strong>.`}</p>
+    </div>
+
+    <div class="insights-box" style="border-color: var(--border); margin-bottom: 24px;">
+      <h3>Score Journey — Scenario by Scenario</h3>
+      <p style="margin-bottom:14px; font-size:13px; color:var(--text-dim);">Started at <strong style="color:var(--text);">50</strong> &nbsp;·&nbsp; Net movement: <strong style="color:${netPoints >= 0 ? 'var(--green)' : '#e05c4a'};">${netStr} pts</strong> &nbsp;·&nbsp; ${wasCapped ? `Raw total: <strong style="color:var(--gold);">${rawTotal}</strong> → capped at <strong style="color:${verdict.score_color};">100</strong>` : `Final: <strong style="color:${verdict.score_color};">${state.score}</strong>`}</p>
+      ${journeyHTML}
     </div>
 
     <div class="insights-box" style="border-color: ${verdict.score_color}; margin-bottom: 24px;">
@@ -1582,12 +2315,12 @@ function renderResults() {
     <div class="team-autopsy">
       <div class="autopsy-label">Team Autopsy — What Each Hire Actually Was</div>
       ${teamAutopsy.map(t => `
-        <div class="autopsy-item" style="flex-direction: column; align-items: flex-start; gap: 6px; padding: 16px 0;">
+        <div class="autopsy-item" style="flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px 0;">
           <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
             <div class="autopsy-name">${t.name}</div>
             <div class="autopsy-verdict ${t.verdict}">${t.label}</div>
           </div>
-          <div style="font-size: 12px; color: var(--text-dim); line-height: 1.5;">${t.insight}</div>
+          <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">${t.insight}</div>
         </div>
       `).join('')}
     </div>
@@ -1609,22 +2342,22 @@ function renderResults() {
     <div class="insights-box" style="margin-top: 24px; border-color: var(--border);">
       <h3>Scenario Breakdown</h3>
       ${scenarioBreakdown.map(s => `
-        <div style="padding: 10px 0; border-bottom: 1px solid var(--border);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <div style="font-size: 13px; font-weight: 600; color: var(--text);">${s.title}</div>
-            <div style="font-family: 'DM Mono', monospace; font-size: 12px; color: ${s.delta >= 0 ? '#27ae60' : '#c0392b'};">${s.delta >= 0 ? '+' : ''}${s.delta} pts</div>
+        <div style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="font-size: 14px; font-weight: 600; color: var(--text);">${s.title}</div>
+            <div style="font-family: 'DM Mono', monospace; font-size: 13px; color: ${s.delta >= 0 ? '#4ac87a' : '#e05c4a'}; font-weight:500;">${s.delta >= 0 ? '+' : ''}${s.delta} pts</div>
           </div>
-          <div style="font-size: 12px; color: var(--text-dim); line-height: 1.5;">${s.outcome}</div>
+          <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">${s.outcome}</div>
         </div>
       `).join('')}
     </div>
 
-    <div class="insights-box" style="margin-top: 24px; border-color: var(--text-muted);">
+    <div class="insights-box" style="margin-top: 24px; border-color: var(--gold-dim);">
       <h3>Your Blind Spot to Watch</h3>
       <p>${verdict.blind_spot}</p>
     </div>
 
-    <div class="insights-box" style="margin-top: 24px; border-color: var(--text-muted);">
+    <div class="insights-box" style="margin-top: 24px; border-color: var(--border);">
       <h3>The Principle</h3>
       <p>Your team is the most public expression of your values as a leader. Every hire is a statement — about what you reward, what you tolerate, and what kind of culture you're willing to build or protect.</p>
       <p>The candidates who impressed you most weren't always the ones who served the team best. That gap is worth sitting with.</p>
@@ -1646,7 +2379,7 @@ renderTeamSlots && renderTeamSlots();
   border-top: 1px solid var(--border);
   text-align: center;
 ">
-  <p style="font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); line-height: 1.8; letter-spacing: 0.5px;">
+  <p style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-dim); line-height: 1.9; letter-spacing: 0.5px;">
     A reflective tool for exploring team composition and leadership dynamics.<br>
     Inspired by Jim Collins' <em style="color: var(--text-dim);">Good to Great</em> and Tasha Eurich's research on leadership self-awareness.<br>
     Built by <span style="color: var(--gold);">Samir Saad</span>.
